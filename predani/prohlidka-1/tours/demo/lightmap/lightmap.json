@@ -1,0 +1,868 @@
+{
+ "version": 1,
+ "encoding": {
+  "type": "pow",
+  "gamma": 2.2,
+  "scale": 1.915938377380371
+ },
+ "exposure": 4.593049601121351,
+ "variants": [
+  {
+   "key": "46621895",
+   "atlas": {
+    "high": "lightmap-46621895-2048.jpg",
+    "low": "lightmap-46621895-1024.jpg"
+   },
+   "uv": "lightmap-46621895-uv-bin.webm",
+   "meshes": [
+    {
+     "name": "shell-wallTop@1pp",
+     "verts": 84,
+     "tris": 42,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plaster@1pp",
+     "verts": 228,
+     "tris": 130,
+     "extra": 8,
+     "remap": 10
+    },
+    {
+     "name": "shell-tiles@1pp",
+     "verts": 84,
+     "tris": 42,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plasterNeutral@1pp",
+     "verts": 28,
+     "tris": 16,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-oakGreige@1pp",
+     "verts": 390,
+     "tris": 176,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-paving@1pp",
+     "verts": 4,
+     "tris": 2,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-grass@1pp",
+     "verts": 12,
+     "tris": 4,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-stone@1pp",
+     "verts": 40,
+     "tris": 20,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-frame@1pp",
+     "verts": 384,
+     "tris": 192,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-wood@1pp",
+     "verts": 384,
+     "tris": 192,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-paint@1pp",
+     "verts": 2652,
+     "tris": 1974,
+     "extra": 288,
+     "remap": 431
+    },
+    {
+     "name": "shell-ceiling@1pp",
+     "verts": 450,
+     "tris": 297,
+     "extra": 34,
+     "remap": 39
+    },
+    {
+     "name": "shell-wallTop@1np",
+     "verts": 100,
+     "tris": 50,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plaster@1np",
+     "verts": 416,
+     "tris": 228,
+     "extra": 2,
+     "remap": 2
+    },
+    {
+     "name": "shell-tiles@1np",
+     "verts": 44,
+     "tris": 24,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-oakGreige@1np",
+     "verts": 378,
+     "tris": 164,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-frame@1np",
+     "verts": 648,
+     "tris": 324,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-wood@1np",
+     "verts": 648,
+     "tris": 324,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-doorLeaf@1np",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-ceiling@1np",
+     "verts": 204,
+     "tris": 90,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-ceramic@1pp",
+     "verts": 1604,
+     "tris": 2152,
+     "extra": 16,
+     "remap": 24
+    },
+    {
+     "name": "furniture-paint@1pp",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-ceramic@1np",
+     "verts": 624,
+     "tris": 860,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-paint@1np",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-terasa-1",
+     "verts": 144,
+     "tris": 72,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-out-dv-terasa-1",
+     "verts": 72,
+     "tris": 36,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-terasa-2",
+     "verts": 144,
+     "tris": 72,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-out-dv-terasa-2",
+     "verts": 72,
+     "tris": 36,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-sklad",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-technicka",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-koupelna",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-12",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-13",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-wc",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-10",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    }
+   ],
+   "state": {
+    "furnished": false,
+    "edits": []
+   }
+  },
+  {
+   "key": "14755435",
+   "atlas": {
+    "high": "lightmap-14755435-2048.jpg",
+    "low": "lightmap-14755435-1024.jpg"
+   },
+   "uv": "lightmap-14755435-uv-bin.webm",
+   "meshes": [
+    {
+     "name": "shell-wallTop@1pp",
+     "verts": 84,
+     "tris": 42,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plaster@1pp",
+     "verts": 228,
+     "tris": 130,
+     "extra": 8,
+     "remap": 10
+    },
+    {
+     "name": "shell-tiles@1pp",
+     "verts": 84,
+     "tris": 42,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plasterNeutral@1pp",
+     "verts": 28,
+     "tris": 16,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-oakGreige@1pp",
+     "verts": 390,
+     "tris": 176,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-paving@1pp",
+     "verts": 4,
+     "tris": 2,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-grass@1pp",
+     "verts": 12,
+     "tris": 4,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-stone@1pp",
+     "verts": 40,
+     "tris": 20,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-frame@1pp",
+     "verts": 384,
+     "tris": 192,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-wood@1pp",
+     "verts": 384,
+     "tris": 192,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-paint@1pp",
+     "verts": 2652,
+     "tris": 1974,
+     "extra": 288,
+     "remap": 431
+    },
+    {
+     "name": "shell-ceiling@1pp",
+     "verts": 450,
+     "tris": 297,
+     "extra": 34,
+     "remap": 39
+    },
+    {
+     "name": "shell-wallTop@1np",
+     "verts": 100,
+     "tris": 50,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-plaster@1np",
+     "verts": 416,
+     "tris": 228,
+     "extra": 2,
+     "remap": 2
+    },
+    {
+     "name": "shell-tiles@1np",
+     "verts": 44,
+     "tris": 24,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-oakGreige@1np",
+     "verts": 378,
+     "tris": 164,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-frame@1np",
+     "verts": 648,
+     "tris": 324,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-wood@1np",
+     "verts": 648,
+     "tris": 324,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-doorLeaf@1np",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "shell-ceiling@1np",
+     "verts": 204,
+     "tris": 90,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-ceramic@1pp",
+     "verts": 1604,
+     "tris": 2152,
+     "extra": 16,
+     "remap": 24
+    },
+    {
+     "name": "furniture-paint@1pp",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-ceramic@1np",
+     "verts": 624,
+     "tris": 860,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furniture-paint@1np",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furnishing-wood@1pp",
+     "verts": 2460,
+     "tris": 1460,
+     "extra": 44,
+     "remap": 66
+    },
+    {
+     "name": "furnishing-ceramic@1pp",
+     "verts": 450,
+     "tris": 408,
+     "extra": 44,
+     "remap": 66
+    },
+    {
+     "name": "furnishing-foliage@1pp",
+     "verts": 936,
+     "tris": 1016,
+     "extra": 826,
+     "remap": 1172
+    },
+    {
+     "name": "furnishing-paint@1pp",
+     "verts": 848,
+     "tris": 540,
+     "extra": 160,
+     "remap": 229
+    },
+    {
+     "name": "furnishing-rug@1pp",
+     "verts": 1224,
+     "tris": 1680,
+     "extra": 474,
+     "remap": 868
+    },
+    {
+     "name": "furnishing-screen@1pp",
+     "verts": 535,
+     "tris": 612,
+     "extra": 152,
+     "remap": 264
+    },
+    {
+     "name": "furnishing-wood@1np",
+     "verts": 1517,
+     "tris": 1692,
+     "extra": 63,
+     "remap": 133
+    },
+    {
+     "name": "furnishing-ceramic@1np",
+     "verts": 549,
+     "tris": 796,
+     "extra": 186,
+     "remap": 429
+    },
+    {
+     "name": "furnishing-paint@1np",
+     "verts": 624,
+     "tris": 312,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furnishing-rug@1np",
+     "verts": 1218,
+     "tris": 1504,
+     "extra": 302,
+     "remap": 493
+    },
+    {
+     "name": "furnishing-screen@1np",
+     "verts": 48,
+     "tris": 24,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "furnishing-foliage@1np",
+     "verts": 63,
+     "tris": 80,
+     "extra": 45,
+     "remap": 86
+    },
+    {
+     "name": "door-frame-dv-terasa-1",
+     "verts": 144,
+     "tris": 72,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-out-dv-terasa-1",
+     "verts": 72,
+     "tris": 36,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-terasa-2",
+     "verts": 144,
+     "tris": 72,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-out-dv-terasa-2",
+     "verts": 72,
+     "tris": 36,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-sklad",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-technicka",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-koupelna",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-12",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-13",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-wc",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "door-frame-dv-pokoj-10",
+     "verts": 216,
+     "tris": 108,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    },
+    {
+     "name": "(bez jména)",
+     "verts": 24,
+     "tris": 12,
+     "extra": 0,
+     "remap": 0
+    }
+   ],
+   "state": {
+    "furnished": true,
+    "edits": []
+   }
+  }
+ ],
+ "doorLeaves": "dynamic",
+ "sun": 3.0,
+ "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 43 texelů/m, 2026-11-09 10:29"
+}

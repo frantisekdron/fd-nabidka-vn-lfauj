@@ -1,0 +1,42 @@
+{
+ "kodovani": "srgb(ozareni*0.5)",
+ "objekty": {
+  "dum_antracit": "lm_dum.jpg",
+  "dum_drevo": "lm_dum.jpg",
+  "dum_omitka": "lm_dum.jpg",
+  "interier_int_podlaha": "lm_dum.jpg",
+  "interier_int_stena": "lm_dum.jpg",
+  "okna_antracit": "lm_dum.jpg",
+  "okna_nerez": "lm_dum.jpg",
+  "okna_sklo": "lm_dum.jpg",
+  "strecha_antracit": "lm_dum.jpg",
+  "strecha_hrebenac": "lm_dum.jpg",
+  "strecha_taska": "lm_dum.jpg",
+  "svody_antracit": "lm_dum.jpg",
+  "ploty_pletivo": "lm_zahrada.jpg",
+  "ploty_sloupek": "lm_zahrada.jpg",
+  "zahrada_beton": "lm_zahrada.jpg",
+  "zahrada_dlazba_velka": "lm_zahrada.jpg",
+  "zahrada_dlazba_zamkova": "lm_zahrada.jpg",
+  "zahrada_kamen": "lm_zahrada.jpg",
+  "zahrada_kvet_bila": "lm_zahrada.jpg",
+  "zahrada_kvet_fialova": "lm_zahrada.jpg",
+  "zahrada_list": "lm_zahrada.jpg",
+  "zahrada_mulc": "lm_zahrada.jpg",
+  "zahrada_strk": "lm_zahrada.jpg",
+  "zahrada_trava_okrasna": "lm_zahrada.jpg",
+  "zahrada_zivy_plot": "lm_zahrada.jpg",
+  "teren_dlazba_zamkova": "lm_pozemek.jpg",
+  "teren_kamen": "lm_pozemek.jpg",
+  "teren_trava": "lm_pozemek.jpg",
+  "okoli_budovy_soused_fasada": "lm_okoli.jpg",
+  "okoli_budovy_soused_strecha": "lm_okoli.jpg",
+  "ploty_stavajici_beton": "lm_okoli.jpg",
+  "ploty_stavajici_pletivo": "lm_okoli.jpg",
+  "ploty_stavajici_sloupek": "lm_okoli.jpg",
+  "teren_okoli": "lm_okoli.jpg"
+ },
+ "meritko": {
+  "lm_okoli.jpg": 0.88
+ }
+}

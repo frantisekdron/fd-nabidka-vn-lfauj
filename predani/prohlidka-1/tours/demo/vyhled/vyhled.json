@@ -1,0 +1,29 @@
+{
+ "version": 1,
+ "note": "Výhled z oken promítnutý ze skutečných fotek bytu (tools/vyhled/vyhled.py); kde fotky ven nevidí, je průhledno.",
+ "photos": [
+  "dron-0701",
+  "dron-0707"
+ ],
+ "cylinder": {
+  "url": "vyhled-valec.webp",
+  "center": [
+   -0.039,
+   4.8545
+  ],
+  "radius": 120.0,
+  "bottom": -1.2,
+  "top": 30.0,
+  "coverage": 0.128,
+  "sectors": [
+   [
+    36.25,
+    100.15
+   ],
+   [
+    155.83,
+    229.39
+   ]
+  ]
+ }
+}

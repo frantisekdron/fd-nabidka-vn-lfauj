@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Na Vinici – 3D model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;0,600;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vinova: #6B1E2E; --zlata: #C8A15A; --kremova: #F3ECDF; --grafit: #24221F; --listova: #5F6B3C;
+    --panel: rgba(36, 34, 31, .82); --linka: rgba(200, 161, 90, .55);
+  }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #cfd8de; color: var(--kremova);
+    font-family: 'Nunito Sans', 'Avenir Next', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+  canvas { display: block; touch-action: none; }
+  .hlava { position: fixed; left: 16px; top: max(14px, env(safe-area-inset-top)); display: flex; align-items: center; gap: 12px;
+    background: var(--panel); border-left: 3px solid var(--zlata); padding: 9px 14px 9px 12px; pointer-events: none; }
+  .hlava svg { flex: none; }
+  .hlava .t { font-family: 'Bodoni Moda', Didot, serif; font-size: 24px; line-height: 1; color: var(--kremova); }
+  .hlava .s { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--zlata); margin-top: 5px; font-weight: 700; }
+  .panel { position: fixed; right: 16px; top: max(14px, env(safe-area-inset-top)); display: flex; flex-direction: column; gap: 6px; }
+  .btn { appearance: none; border: 1px solid var(--linka); background: var(--panel); color: var(--kremova); font: 700 12px/1 'Nunito Sans', sans-serif;
+    letter-spacing: .1em; text-transform: uppercase; padding: 11px 14px; cursor: pointer; text-align: left; min-width: 150px; }
+  .btn:hover { border-color: var(--zlata); }
+  .btn.on { background: var(--zlata); color: var(--grafit); border-color: var(--zlata); }
+  .chuze-jen { display: none !important; }
+  body.chuze .chuze-jen { display: block !important; }
+  body.chuze .orbit-jen { display: none !important; }
+  .napoveda { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(14px, env(safe-area-inset-bottom)); background: var(--panel);
+    font-size: 12px; padding: 7px 12px; letter-spacing: .03em; color: #e9e1d2; white-space: nowrap; pointer-events: none; }
+  .pozn { position: fixed; left: 16px; bottom: max(14px, env(safe-area-inset-bottom)); font-size: 10.5px; color: var(--grafit);
+    background: rgba(243, 236, 223, .82); padding: 5px 9px; max-width: 46vw; line-height: 1.35; pointer-events: none; }
+  .stitek { position: fixed; transform: translate(-50%, -100%); pointer-events: auto; cursor: pointer; text-align: center; }
+  .stitek .c { font-family: 'Bodoni Moda', Didot, serif; font-size: 28px; line-height: 1; color: var(--kremova); background: var(--grafit);
+    border: 1px solid var(--zlata); width: 42px; height: 42px; display: grid; place-items: center; margin: 0 auto; }
+  .stitek .i { margin-top: 5px; background: rgba(36, 34, 31, .88); padding: 5px 9px; font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; white-space: nowrap; border-left: 3px solid var(--zlata); }
+  .stitek .i small { display: block; font-weight: 600; letter-spacing: .04em; text-transform: none; color: var(--zlata); font-size: 11px; margin-top: 2px; }
+  .stitek .p3d { display: block; font-style: normal; margin-top: 4px; color: #24221F; background: var(--zlata); padding: 3px 6px; font-size: 10.5px; letter-spacing: .08em; }
+  .stitek::after { content: ''; display: block; width: 1px; height: 26px; background: var(--zlata); margin: 0 auto; }
+  .vstup { position: fixed; transform: translate(-50%, -100%); pointer-events: auto; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    background: var(--grafit); border: 1px solid var(--zlata); padding: 7px 11px 7px 8px; font-size: 11px; font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; white-space: nowrap; color: var(--kremova); }
+  .vstup .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--zlata); box-shadow: 0 0 0 4px rgba(200, 161, 90, .25); }
+  .vstup small { display: block; font-weight: 600; letter-spacing: .04em; text-transform: none; color: var(--zlata); font-size: 10.5px; }
+  .vstup.ceka { opacity: .78; cursor: default; }
+  .vstup.ceka .dot { background: #8d867b; box-shadow: none; }
+  .velky { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 44px); display: none;
+    background: var(--zlata); color: var(--grafit); border: 0; font: 800 14px/1.1 'Nunito Sans', sans-serif; letter-spacing: .1em; padding: 13px 20px;
+    text-transform: uppercase; cursor: pointer; }
+  .velky small { display: block; font-weight: 600; letter-spacing: .03em; text-transform: none; font-size: 12px; margin-top: 3px; }
+  .velky.vid { display: block; }
+  .toast { position: fixed; left: 50%; top: 42%; transform: translate(-50%, -50%); background: var(--panel); border: 1px solid var(--zlata);
+    padding: 14px 18px; font-size: 14px; max-width: 80vw; text-align: center; display: none; }
+  .toast.vid { display: block; }
+  .kompas { position: fixed; right: 16px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 4px); width: 54px; height: 54px; border-radius: 50%;
+    background: var(--panel); border: 1px solid var(--linka); pointer-events: none; }
+  .kompas i { position: absolute; left: 50%; top: 50%; width: 2px; height: 22px; margin: -22px 0 0 -1px; background: var(--zlata); transform-origin: 50% 100%; }
+  .kompas b { position: absolute; left: 50%; top: 50%; font: 700 11px/1 'Nunito Sans'; color: var(--kremova); transform-origin: 0 0; }
+  .joy { position: fixed; left: 26px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 52px); width: 120px; height: 120px; border-radius: 50%;
+    border: 1px solid var(--linka); background: rgba(36, 34, 31, .35); display: none; touch-action: none; }
+  .joy span { position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; border-radius: 50%; background: var(--zlata); opacity: .9; }
+  body.chuze.dotyk .joy { display: block; }
+  .nacitani { position: fixed; inset: 0; display: grid; place-items: center; background: var(--grafit); z-index: 9; transition: opacity .6s; }
+  .nacitani img { width: min(300px, 70vw); }
+  .nacitani p { text-align: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--zlata); }
+  @media (max-width: 640px) {
+    .hlava svg { width: 36px; } .hlava .t { font-size: 19px; } .hlava .s { font-size: 9px; }
+    .btn { min-width: 0; padding: 10px 11px; font-size: 11px; }
+    .pozn { display: none; }
+    .stitek .i { font-size: 10px; } .stitek .c { width: 34px; height: 34px; font-size: 22px; }
+    .napoveda { font-size: 11px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 0px); }
+  }
+</style>
+</head>
+<body>
+<div class="nacitani" id="nacitani"><div><img src="logo_svetle.png" alt="Na Vinici"><p id="nacitaniText">Načítáme 3D model…</p></div></div>
+<div class="hlava"><svg viewBox="0 0 60 34" width="46" height="26" aria-hidden="true"><path d="M6 20 A24 17 0 0 1 54 20" fill="none" stroke="#C8A15A" stroke-width="2.4"/><path d="M20 32 L26 22 M29 32 L35 22 M38 32 L44 22" stroke="#C8A15A" stroke-width="2.4" stroke-linecap="round"/></svg><div><div class="t">Na Vinici</div><div class="s">Valtice · 3 rodinné domy v řadě</div></div></div>
+<div class="panel">
+  <button class="btn orbit-jen" id="btnChuze" type="button">Projít se po pozemku</button>
+  <button class="btn chuze-jen" id="btnZpet" type="button">Pohled z výšky</button>
+  <button class="btn on" id="btnOkoli" type="button">Okolí</button>
+  <button class="btn on" id="btnZahrada" type="button">Zahrady (návrh)</button>
+  <button class="btn orbit-jen" id="btnStitky" type="button">Jednotky</button>
+</div>
+<div class="kompas" id="kompas"><i></i><b>S</b></div>
+<div class="joy" id="joy"><span></span></div>
+<button class="velky" id="velky" type="button"></button>
+<div class="toast" id="toast"></div>
+<div class="napoveda" id="napoveda"></div>
+<div class="pozn">Dům podle projektové dokumentace (DSP, Atelier X). Zahrady, terén a ploty jsou návrh, okolí orientačně z dat ČÚZK.</div>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+               "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+               "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.3/build/index.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { computeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
+
+const params = new URLSearchParams(location.search);
+const MODEL = params.get('model') || 'dum-glb.webm';
+const LM_JSON = params.get('lm') || 'lightmapy.json';                    // zapečené světlo z Blenderu (bake_svetlo.py)
+const LM_K = +(params.get('lmk') || 1.0);
+// prohlídky bytů: jednotka 1 hotová, 2 a 3 se doplní po schválení (stačí sem dát adresu nebo ?byt2=…)
+const BYTY = {
+  1: { url: params.has('byt1') ? (params.get('byt1') || null) : '../prohlidka-1/', plocha: '95,3 m²', zahrada: '115 m²' },   // ?byt1= (prázdné) = připravujeme
+  2: { url: params.get('byt2') || null, plocha: '100,6 m²', zahrada: '82 m²' },
+  3: { url: params.get('byt3') || null, plocha: '95,3 m²', zahrada: '169 m²' },
+};
+const DOTYK = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+if (DOTYK) document.body.classList.add('dotyk');
+const $ = (id) => document.getElementById(id);
+const DEG = Math.PI / 180;
+// osy modelu: Blender X (podél SV hranice k JV), Y (k SV), Z nahoru → three (x, y, z) = (X, Z, −Y)
+const W = (X, Y, Z = 0) => new THREE.Vector3(X, Z, -Y);
+const SEVER = new THREE.Vector3(-0.7276, 0, -0.6860).normalize();     // sever v osách modelu (scena.json: XY→ENU −46,70°)
+const DUM = { X0: 8.47, X1: 28.97, YSV: -3.61, YJZ: -13.11 };
+const STRED = W((DUM.X0 + DUM.X1) / 2, (DUM.YSV + DUM.YJZ) / 2, 0.5);
+const JEDNOTKY = [{ c: 3, X: [8.47, 15.27] }, { c: 2, X: [15.27, 22.12] }, { c: 1, X: [22.12, 28.97] }];
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, DOTYK ? 2 : 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = +(params.get('exp') || 1.2);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(renderer.domElement);
+const canvas = renderer.domElement;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 2000);
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.18, 0.5, 0.92); composer.addPass(bloom);
+composer.addPass(new OutputPass());
+const smaa = new SMAAPass(innerWidth * renderer.getPixelRatio(), innerHeight * renderer.getPixelRatio()); composer.addPass(smaa);
+const pmrem = new THREE.PMREMGenerator(renderer);
+// venkovní prostředí pro odrazy (sklo, plech): obloha s přechodem, světlý obzor, tmavší zem a jas kolem slunce
+function venkovniProstredi(smerSlunce) {
+  const s = new THREE.Scene();
+  s.add(new THREE.Mesh(new THREE.SphereGeometry(50, 48, 24), new THREE.ShaderMaterial({ side: THREE.BackSide,
+    uniforms: { sl: { value: smerSlunce.clone().normalize() } },
+    vertexShader: 'varying vec3 p; void main(){ p = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: `uniform vec3 sl; varying vec3 p;
+      void main(){ float h = p.y; vec3 nebe = mix(vec3(0.92,0.95,0.97), vec3(0.36,0.56,0.82), pow(clamp(h,0.0,1.0),0.55));
+        vec3 zem = mix(vec3(0.42,0.43,0.36), vec3(0.62,0.64,0.58), clamp(1.0+h*4.0,0.0,1.0));
+        vec3 c = h > 0.0 ? nebe : zem; float d = max(dot(p, sl), 0.0); c += vec3(1.0,0.92,0.8) * (pow(d, 600.0) * 40.0 + pow(d, 12.0) * 0.35);
+        gl_FragColor = vec4(c, 1.0); }` })));
+  return pmrem.fromScene(s, 0.0).texture;
+}
+
+// obloha (přechod) a mlha
+const nebe = new THREE.Mesh(new THREE.SphereGeometry(900, 32, 16), new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite: false, fog: false,
+  uniforms: { hore: { value: new THREE.Color(0x7fa6cf) }, obzor: { value: new THREE.Color(0xe9eef0) } },
+  vertexShader: 'varying vec3 p; void main(){ p = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+  fragmentShader: 'uniform vec3 hore, obzor; varying vec3 p; void main(){ float t = clamp(p.y*1.6, 0.0, 1.0); gl_FragColor = vec4(mix(obzor, hore, pow(t,0.7)), 1.0); }',
+}));
+scene.add(nebe);
+scene.fog = new THREE.Fog(0xdfe5e6, 90, 330);
+const zem = new THREE.Mesh(new THREE.CircleGeometry(1200, 48), new THREE.MeshBasicMaterial({ color: 0x8c9774 }));   // louka do obzoru (bez světel, zapečený režim)
+zem.rotation.x = -Math.PI / 2; zem.position.set(20, -6.5, 10); scene.add(zem);
+
+// světlo: slunce z JZ (odpoledne), obloha
+const hemi = new THREE.HemisphereLight(0xdfeaf5, 0x5d6650, 0.75); scene.add(hemi);
+const slunce = new THREE.DirectionalLight(0xfff1df, 2.3);
+const azS = 225 * DEG, elS = 34 * DEG;                                // azimut ve skutečném severu → osy modelu
+const sevAz = Math.atan2(SEVER.x, -SEVER.z);
+const smer = new THREE.Vector3(Math.sin(sevAz + azS) * Math.cos(elS), Math.sin(elS), -Math.cos(sevAz + azS) * Math.cos(elS));
+slunce.position.copy(STRED).addScaledVector(smer, 80); slunce.target.position.copy(STRED);
+slunce.castShadow = true; const SH = DOTYK ? 2048 : 4096;
+slunce.shadow.mapSize.set(SH, SH); const sc = slunce.shadow.camera; sc.left = -38; sc.right = 38; sc.top = 38; sc.bottom = -38; sc.near = 10; sc.far = 200;
+slunce.shadow.bias = -0.0004; slunce.shadow.normalBias = 0.03;
+scene.add(slunce, slunce.target);
+scene.environment = venkovniProstredi(smer);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true; controls.dampingFactor = 0.08;
+controls.target.copy(STRED); controls.maxPolarAngle = 86 * DEG; controls.minDistance = 8; controls.maxDistance = 140;
+camera.position.copy(STRED).add(new THREE.Vector3(-26, 22, 30).applyAxisAngle(new THREE.Vector3(0, 1, 0), 0));
+camera.position.copy(W(5, -40, 22));
+
+const casti = { dum: [], teren: [], zahrada: [], okoli: [], kolize: [], zem: [] };
+const vstupy = {};
+const loader = new GLTFLoader();
+const draco = new DRACOLoader(); draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/');
+loader.setDRACOLoader(draco);
+loader.load(MODEL, (g) => {
+  const root = g.scene; scene.add(root);
+  root.traverse((o) => {
+    if (o.name.startsWith('VSTUP_')) vstupy[o.userData.jednotka || +o.name.slice(6)] = o;
+    if (!o.isMesh) return;
+    const nm = o.name, m = o.material;
+    const grp = (o.userData && o.userData.skupina) || nm.split('_')[0];
+    if (grp === 'zelen' || grp === 'okoli_budovy' || /^okoli_budovy/.test(nm)) { o.visible = false; return; }   // bez hmot sousedů (Franta 9. 11.)                 // provizorní stromky a keře (jen bez stažených modelů)
+    o.castShadow = !['teren', 'interier'].includes(grp); o.receiveShadow = true;
+    if (m) {
+      if (m.map) m.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      if (/pletivo/.test(m.name)) { m.alphaTest = 0.5; m.transparent = false; m.side = THREE.DoubleSide; o.castShadow = false; }
+      if (/sklo/.test(m.name)) { m.transparent = true; m.opacity = 0.62; m.depthWrite = false; m.color.set(0x10161b); m.envMapIntensity = 2.4; m.roughness = 0.02; m.metalness = 0.0; o.castShadow = false; }
+      if (/^okoli/.test(m.name)) { m.roughness = 1; m.envMapIntensity = 0.3; m.map = null; m.color.setRGB(0.20, 0.27, 0.12);   // okolí jen jako čistá louka (bez ortofota)
+        m.onBeforeCompile = (sh) => {
+          sh.vertexShader = 'varying vec3 vWp;\n' + sh.vertexShader.replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\n vWp = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+          sh.fragmentShader = 'varying vec3 vWp;\n' + sh.fragmentShader.replace('#include <map_fragment>', `#include <map_fragment>
+            float dd = length(vWp.xz - vec2(${STRED.x.toFixed(1)}, ${STRED.z.toFixed(1)}));
+            diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.262, 0.311, 0.178), smoothstep(34.0, 58.0, dd));`);
+        }; }
+      if (/int_/.test(m.name)) { m.envMapIntensity = 0.05; m.color.multiplyScalar(0.45); }
+    }
+    if (['dum', 'okna', 'strecha', 'svody', 'interier'].includes(grp)) { casti.dum.push(o); if (grp !== 'interier') casti.kolize.push(o); }
+    else if (grp === 'teren') { (/okoli/.test(m && m.name) ? casti.okoli : casti.teren).push(o); casti.zem.push(o); }
+    else if (grp === 'ploty_stavajici') { casti.okoli.push(o); casti.kolize.push(o); }
+    else { casti.zahrada.push(o); if (grp === 'ploty' || /beton|kamen/.test(m && m.name)) casti.kolize.push(o); if (/dlazba|strk/.test(m && m.name)) casti.zem.push(o); }
+  });
+  for (const o of [...casti.zem, ...casti.kolize]) o.geometry.computeBoundsTree();
+  postavVstupy();
+  nactiLightmapy(root);
+  $('nacitani').style.opacity = 0; setTimeout(() => $('nacitani').remove(), 650);
+}, (e) => { if (e.total) $('nacitaniText').textContent = `Načítáme 3D model… ${Math.round(100 * e.loaded / e.total)} %`; },
+(err) => { $('nacitaniText').textContent = 'Model se nepodařilo načíst.'; console.error(err); });
+
+// ------------------------------------------------------------------ zapečené světlo
+async function nactiLightmapy(root) {
+  let lm;
+  try { lm = await (await fetch(LM_JSON)).json(); } catch (e) { return; }         // bez lightmap zůstává světlo v reálném čase
+  const tl = new THREE.TextureLoader(), cache = {};
+  const tx = (f) => cache[f] || (cache[f] = tl.load(f, (t) => { t.channel = 1; t.flipY = false; t.colorSpace = THREE.SRGBColorSpace; t.needsUpdate = true; }));
+  let n = 0;
+  root.traverse((o) => {
+    if (!o.isMesh || !lm.objekty[o.name] || /sklo/.test(o.material.name) || !o.geometry.attributes.uv1) return;
+    if (/^okoli/.test(o.material.name)) {                                       // okolí: zapečené stíny smazaných sousedů pryč → jednolitá louka splývající s obzorem
+      const mb = new THREE.MeshBasicMaterial({ color: 0x8c9774 }); mb.onBeforeCompile = o.material.onBeforeCompile; o.material = mb;
+      o.castShadow = false; o.receiveShadow = false; return;
+    }
+    const m = o.material.clone(); m.lightMap = tx(lm.objekty[o.name]); m.lightMap.channel = 1;
+    const f = lm.objekty[o.name];
+    m.lightMapIntensity = 2.0 * LM_K * Math.PI * ((lm.meritko && lm.meritko[f]) || 1);
+    m.envMapIntensity = m.roughness > 0.5 ? 0.12 : 0.6;
+    o.material = m; o.castShadow = false; o.receiveShadow = false; n++;
+  });
+  if (n) { slunce.visible = false; hemi.intensity = 0.0; renderer.shadowMap.enabled = false; document.body.classList.add('zapeceno'); }
+  console.log('lightmapy', n);
+  const tr = root.getObjectByName('teren_trava');
+  if (tr && lm.objekty[tr.name]) trava(tr, lm.objekty[tr.name], ((lm.meritko && lm.meritko[lm.objekty[tr.name]]) || 1));
+  if (n) rostliny(root, lm);
+}
+
+// keře a stromy (Poly Haven): bez dynamických světel – vlastní textura jako emise, tvar ze směru slunce, jas ze zapečené mapy pod rostlinou
+const U_SLUNCE = { value: new THREE.Vector3() };
+async function rostliny(root, lm) {
+  const meshe = [];
+  root.traverse((o) => { if (!o.isMesh) return; let p = o; while (p) { if (/^rostliny/.test(p.name)) { meshe.push(o); return; } p = p.parent; } });
+  if (!meshe.length) return;
+  U_SLUNCE.value.copy(smer).normalize();
+  const zem = casti.zem.filter((o) => lm.objekty[o.name]);
+  const vzorky = {};
+  const nactiPx = async (f) => vzorky[f] || (vzorky[f] = await new Promise((ok) => { const i = new Image(); i.onload = () => {
+    const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); g.drawImage(i, 0, 0, 256, 256); ok(g.getImageData(0, 0, 256, 256).data); }; i.src = f; }));
+  const rz = new THREE.Raycaster(); rz.far = 6;
+  for (const o of meshe) {
+    const p = new THREE.Vector3(); o.getWorldPosition(p);
+    rz.set(p.clone().add(new THREE.Vector3(0, 3, 0)), new THREE.Vector3(0, -1, 0));
+    const h = rz.intersectObjects(zem, false)[0]; let jas = 1.0;
+    if (h && h.uv1) { const f = lm.objekty[h.object.name]; const px = await nactiPx(f); const k = (lm.meritko && lm.meritko[f]) || 1;
+      const x = Math.min(255, Math.floor(h.uv1.x * 256)), y = Math.min(255, Math.floor(h.uv1.y * 256)), i = (y * 256 + x) * 4;
+      jas = Math.min(1.4, Math.pow((px[i] + px[i + 1] + px[i + 2]) / 765, 2.2) * 2.0 * k); }
+    const st = o.material;
+    const m = new THREE.MeshLambertMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: st.map, emissiveIntensity: 0.9 * Math.max(0.35, jas),
+      side: st.side, transparent: st.transparent, alphaTest: st.alphaTest, map: null });
+    m.onBeforeCompile = (sh) => {
+      sh.uniforms.uSlunce = U_SLUNCE;
+      sh.fragmentShader = 'uniform vec3 uSlunce;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        vec3 sv = normalize((viewMatrix * vec4(uSlunce, 0.0)).xyz);
+        totalEmissiveRadiance *= 0.55 + 0.6 * max(dot(normal, sv), 0.0);`);
+    };
+    o.material = m; o.castShadow = false;
+  }
+  console.log('rostliny', meshe.length);
+}
+
+// trávník: trsy stébel (instancovaně) na plochách trávy, jas ze zapečené mapy, vítr ve vertex shaderu
+const U_CAS = { value: 0 };
+async function trava(mesh, lmSoubor, k) {
+  const img = await new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.src = lmSoubor; });
+  const cv = document.createElement('canvas'); cv.width = 512; cv.height = 512;
+  const g2 = cv.getContext('2d'); g2.drawImage(img, 0, 0, 512, 512); const px = g2.getImageData(0, 0, 512, 512).data;
+  const lmAt = (u, v) => { const x = Math.min(511, Math.max(0, Math.floor(u * 512))), y = Math.min(511, Math.max(0, Math.floor(v * 512)));
+    const i = (y * 512 + x) * 4; const s = (px[i] + px[i + 1] + px[i + 2]) / 765; return Math.pow(s, 2.2) * 2.0 * k; };
+  const geo = mesh.geometry, P = geo.attributes.position, U1 = geo.attributes.uv1, I = geo.index;
+  mesh.updateMatrixWorld(); const M = mesh.matrixWorld;
+  const tri = [], cum = []; let tot = 0; const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  for (let t = 0; t < I.count; t += 3) {
+    a.fromBufferAttribute(P, I.getX(t)).applyMatrix4(M); b.fromBufferAttribute(P, I.getX(t + 1)).applyMatrix4(M); c.fromBufferAttribute(P, I.getX(t + 2)).applyMatrix4(M);
+    tot += b.clone().sub(a).cross(c.clone().sub(a)).length() / 2; tri.push(t); cum.push(tot);
+  }
+  const N = Math.min(DOTYK ? 26000 : 70000, Math.round(tot * (DOTYK ? 60 : 160)));
+  // trs = 5 zúžených stébel (trojúhelníky), výška 7–13 cm
+  const pos = [], uvs = [];
+  for (let j = 0; j < 5; j++) {
+    const an = j / 5 * Math.PI * 2 + Math.random(), r = 0.025 * Math.random(), w = 0.012, h = 0.07 + 0.06 * Math.random(), lean = 0.03 * (Math.random() - 0.5);
+    const cx = Math.cos(an) * r, cz = Math.sin(an) * r, tx = Math.cos(an + 1.57) * w, tz = Math.sin(an + 1.57) * w;
+    pos.push(cx - tx, 0, cz - tz, cx + tx, 0, cz + tz, cx + lean * Math.cos(an), h, cz + lean * Math.sin(an)); uvs.push(0, 0, 1, 0, 0.5, 1);
+  }
+  const bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); bg.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  const mat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, color: 0xffffff });
+  mat.onBeforeCompile = (sh) => {
+    sh.uniforms.uCas = U_CAS;
+    sh.vertexShader = 'uniform float uCas; varying float vH;\n' + sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>
+      vH = uv.y; vec4 wp = instanceMatrix * vec4(0.0,0.0,0.0,1.0);
+      float sw = sin(uCas * 1.7 + wp.x * 0.35 + wp.z * 0.27) * 0.5 + sin(uCas * 3.1 + wp.x * 1.3) * 0.25;
+      transformed.x += sw * 0.035 * uv.y * uv.y; transformed.z += sw * 0.02 * uv.y * uv.y;`);
+    sh.fragmentShader = 'varying float vH;\n' + sh.fragmentShader.replace('#include <color_fragment>', `#include <color_fragment>
+      diffuseColor.rgb *= mix(0.45, 1.15, vH);`);
+  };
+  const im = new THREE.InstancedMesh(bg, mat, N); im.frustumCulled = false;
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), p = new THREE.Vector3(), col = new THREE.Color();
+  const zakl = [new THREE.Color(0.20, 0.32, 0.11), new THREE.Color(0.27, 0.38, 0.13), new THREE.Color(0.31, 0.37, 0.15)];
+  const ua = new THREE.Vector2(), ub = new THREE.Vector2(), uc = new THREE.Vector2();
+  const rz = new THREE.Raycaster(); rz.far = 2; const dolu = new THREE.Vector3(0, -1, 0);
+  const prekazky = casti.zem.filter((o) => o !== mesh).concat(casti.dum);
+  let n = 0, pokus = 0;
+  while (n < N && pokus++ < N * 3) {
+    const rr = Math.random() * tot; let lo = 0, hi = cum.length - 1; while (lo < hi) { const md = (lo + hi) >> 1; if (cum[md] < rr) lo = md + 1; else hi = md; }
+    const t = tri[lo]; let r1 = Math.random(), r2 = Math.random(); if (r1 + r2 > 1) { r1 = 1 - r1; r2 = 1 - r2; }
+    a.fromBufferAttribute(P, I.getX(t)).applyMatrix4(M); b.fromBufferAttribute(P, I.getX(t + 1)).applyMatrix4(M); c.fromBufferAttribute(P, I.getX(t + 2)).applyMatrix4(M);
+    p.copy(a).addScaledVector(b.clone().sub(a), r1).addScaledVector(c.clone().sub(a), r2);
+    rz.set(p.clone().add(new THREE.Vector3(0, 0.9, 0)), dolu);                 // ne pod terasou, kačírkem, chodníkem ani v domě
+    if (rz.intersectObjects(prekazky, false).some((h) => h.point.y > p.y + 0.005)) continue;
+    ua.fromBufferAttribute(U1, I.getX(t)); ub.fromBufferAttribute(U1, I.getX(t + 1)); uc.fromBufferAttribute(U1, I.getX(t + 2));
+    const u = ua.x + (ub.x - ua.x) * r1 + (uc.x - ua.x) * r2, v = ua.y + (ub.y - ua.y) * r1 + (uc.y - ua.y) * r2;
+    const svetlo = lmAt(u, v);
+    q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.random() * Math.PI * 2); const s = 0.7 + Math.random() * 0.7; sc.set(s, s * (0.8 + Math.random() * 0.5), s);
+    m4.compose(p, q, sc); im.setMatrixAt(n, m4);
+    col.copy(zakl[n % 3]).multiplyScalar(Math.min(1.6, svetlo)); im.setColorAt(n, col); n++;
+  }
+  im.count = n;
+  im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true;
+  scene.add(im); casti.zahrada.push(im);
+  console.log('tráva', N);
+}
+
+// ------------------------------------------------------------------ štítky jednotek a vstupy
+const html = [];
+function stitek(el, pos, minD = 0, maxD = 1e9) { document.body.appendChild(el); html.push({ el, pos, minD, maxD }); return el; }
+for (const j of JEDNOTKY) {
+  const b = BYTY[j.c];
+  const el = document.createElement('div'); el.className = 'stitek orbit-stitek';
+  el.innerHTML = `<div class="c">${j.c}</div><div class="i">Jednotka ${j.c}<small>${b.plocha} · zahrada ${b.zahrada}</small>${b.url ? '<em class="p3d">● 3D prohlídka – vstoupit</em>' : ''}</div>`;
+  el.addEventListener('click', () => (b.url ? otevriByt(j.c) : letKeVstupu(j.c)));
+  stitek(el, W((j.X[0] + j.X[1]) / 2, (DUM.YSV + DUM.YJZ) / 2, 6.6), 0, 160);
+}
+const kruhMat = new THREE.MeshBasicMaterial({ color: 0xC8A15A, transparent: true, opacity: 0.85, depthWrite: false });
+const kruhy = [];
+function postavVstupy() {
+  for (const c of [1, 2, 3]) {
+    const o = vstupy[c]; if (!o) continue;
+    const p = new THREE.Vector3(); o.getWorldPosition(p);
+    const zemP = new THREE.Vector3(p.x, -0.07, p.z + 0.0);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.45, 0.55, 48), kruhMat.clone());
+    ring.rotation.x = -Math.PI / 2; ring.position.copy(zemP).add(new THREE.Vector3(0, 0.03, 0));
+    if (!BYTY[c].url) { ring.material.color.set(0x8d867b); ring.material.opacity = 0.6; }
+    scene.add(ring); kruhy.push({ ring, c });
+    const el = document.createElement('div'); el.className = 'vstup' + (BYTY[c].url ? '' : ' ceka');
+    el.innerHTML = `<span class="dot"></span><span>${BYTY[c].url ? 'Vstoupit · jednotka ' + c : 'Jednotka ' + c}<small>${BYTY[c].url ? '3D prohlídka bytu' : 'prohlídku připravujeme'}</small></span>`;
+    el.addEventListener('click', () => otevriByt(c));
+    stitek(el, p.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
+    vstupy[c].bod = zemP;
+  }
+}
+function otevriByt(c) {
+  const b = BYTY[c];
+  if (!b.url) { toast(`Prohlídku jednotky ${c} doplníme po schválení modelu domu a bytu.`); return; }
+  const u = new URL(b.url, location.href);
+  u.searchParams.set('start', 'vstup'); u.searchParams.set('zpet', location.href.split('#')[0]);
+  location.href = u.toString();
+}
+let toastT = 0;
+function toast(t) { const e = $('toast'); e.textContent = t; e.classList.add('vid'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('vid'), 2600); }
+$('toast').addEventListener('click', () => $('toast').classList.remove('vid'));
+
+// ------------------------------------------------------------------ přepínače
+function prepni(btn, seznam) {
+  btn.classList.toggle('on'); const v = btn.classList.contains('on'); for (const o of casti[seznam]) o.visible = v;
+}
+$('btnOkoli').addEventListener('click', () => prepni($('btnOkoli'), 'okoli'));
+$('btnZahrada').addEventListener('click', () => prepni($('btnZahrada'), 'zahrada'));
+let stitkyVid = true;
+$('btnStitky').classList.add('on');
+$('btnStitky').addEventListener('click', () => { stitkyVid = !stitkyVid; $('btnStitky').classList.toggle('on', stitkyVid); });
+
+// ------------------------------------------------------------------ chůze
+const OCI = 1.65;
+let stav = 'orbit';                                     // orbit | prelet | chuze
+const hrac = { p: new THREE.Vector3(), yaw: 0, pitch: -0.05, cil: null };
+const ulozeno = { pos: new THREE.Vector3(), tgt: new THREE.Vector3() };
+let prelet = null;
+const NAP_O = DOTYK ? 'Otáčení jedním prstem · přiblížení dvěma prsty · ťukni na číslo jednotky' : 'Táhni myší = otáčení · kolečko = přiblížení · klikni na číslo jednotky';
+const NAP_C = DOTYK ? 'Joystick = chůze · táhni prstem = rozhlížení · ťukni na zem = dojdi tam' : 'W A S D / šipky = chůze · táhni myší = rozhlížení · klik na zem = dojdi tam';
+$('napoveda').textContent = NAP_O;
+const ray = new THREE.Raycaster();
+function vyskaZeme(x, z, y0 = 40) {
+  ray.set(new THREE.Vector3(x, y0, z), new THREE.Vector3(0, -1, 0)); ray.far = 80;
+  const h = ray.intersectObjects(casti.zem.filter((o) => o.visible || casti.teren.includes(o)), false)[0];
+  return h ? h.point.y : null;
+}
+function kvat(yaw, pitch) { return new THREE.Quaternion().setFromEuler(new THREE.Euler(pitch, yaw, 0, 'YXZ')); }
+function zacniChuzi(pos, yaw) {
+  if (stav !== 'orbit') return;
+  ulozeno.pos.copy(camera.position); ulozeno.tgt.copy(controls.target);
+  const p = pos || W(33.5, -2.6); const y = yaw ?? Math.atan2(-(W(24.7, -2.6).x - p.x), -(W(24.7, -2.6).z - p.z));
+  hrac.p.set(p.x, 0, p.z); hrac.yaw = y; hrac.pitch = -0.04;
+  const gy = vyskaZeme(p.x, p.z) ?? 0;
+  prelet = { t: 0, p0: camera.position.clone(), q0: camera.quaternion.clone(), p1: new THREE.Vector3(p.x, gy + OCI, p.z), q1: kvat(hrac.yaw, hrac.pitch), cil: 'chuze', f0: camera.fov, f1: 66 };
+  stav = 'prelet'; controls.enabled = false;
+  document.body.classList.add('chuze'); $('napoveda').textContent = NAP_C;
+}
+function konecChuze() {
+  if (stav !== 'chuze') return;
+  const m = new THREE.Matrix4().lookAt(ulozeno.pos, ulozeno.tgt, new THREE.Vector3(0, 1, 0));
+  prelet = { t: 0, p0: camera.position.clone(), q0: camera.quaternion.clone(), p1: ulozeno.pos.clone(), q1: new THREE.Quaternion().setFromRotationMatrix(m), cil: 'orbit', f0: camera.fov, f1: 45 };
+  stav = 'prelet'; $('velky').classList.remove('vid');
+  document.body.classList.remove('chuze'); $('napoveda').textContent = NAP_O;
+}
+function letKeVstupu(c) {
+  const o = vstupy[c]; if (!o || !o.bod) return;
+  if (stav === 'chuze') { hrac.cil = o.bod.clone().add(new THREE.Vector3(0, 0, -1.6)); return; }
+  const p = o.bod.clone().add(new THREE.Vector3(1.2, 0, -4.2));
+  zacniChuzi(p, Math.atan2(-(o.bod.x - p.x), -(o.bod.z - p.z)));
+}
+$('btnChuze').addEventListener('click', () => zacniChuzi());
+$('btnZpet').addEventListener('click', konecChuze);
+
+const klav = {};
+addEventListener('keydown', (e) => { klav[e.code] = true; if (e.code === 'Escape') konecChuze(); });
+addEventListener('keyup', (e) => { klav[e.code] = false; });
+let tah = null;
+canvas.addEventListener('pointerdown', (e) => {
+  if (stav !== 'chuze') { tah = { x: e.clientX, y: e.clientY, t: performance.now(), orbit: true }; return; }
+  canvas.setPointerCapture(e.pointerId); tah = { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t: performance.now() };
+});
+canvas.addEventListener('pointermove', (e) => {
+  if (!tah || tah.orbit || stav !== 'chuze') return;
+  const k = DOTYK ? 0.0055 : 0.0035;
+  hrac.yaw -= (e.clientX - tah.x) * k; hrac.pitch = Math.max(-1.2, Math.min(1.0, hrac.pitch - (e.clientY - tah.y) * k));
+  tah.x = e.clientX; tah.y = e.clientY;
+});
+canvas.addEventListener('pointerup', (e) => {
+  if (!tah) return;
+  const klik = Math.hypot(e.clientX - (tah.sx ?? tah.x), e.clientY - (tah.sy ?? tah.y)) < 6 && performance.now() - tah.t < 400;
+  tah = null; if (!klik) return;
+  const v = new THREE.Vector2((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(v, camera); ray.far = 400;
+  const kr = ray.intersectObjects(kruhy.map((k) => k.ring), false)[0];
+  if (kr) { otevriByt(kruhy.find((k) => k.ring === kr.object).c); return; }
+  if (stav !== 'chuze') return;
+  const h = ray.intersectObjects(casti.zem.filter((o) => o.visible), false)[0];
+  if (h && h.distance < 60) hrac.cil = h.point.clone();
+});
+// joystick
+const joy = $('joy'), joyK = joy.querySelector('span'); let joyV = null;
+joy.addEventListener('pointerdown', (e) => { joy.setPointerCapture(e.pointerId); joyV = { x: 0, y: 0 }; joyPohyb(e); });
+joy.addEventListener('pointermove', (e) => { if (joyV) joyPohyb(e); });
+const joyKonec = () => { joyV = null; joyK.style.transform = ''; };
+joy.addEventListener('pointerup', joyKonec); joy.addEventListener('pointercancel', joyKonec);
+function joyPohyb(e) {
+  const r = joy.getBoundingClientRect(); let x = (e.clientX - r.left - 60) / 50, y = (e.clientY - r.top - 60) / 50;
+  const l = Math.hypot(x, y); if (l > 1) { x /= l; y /= l; }
+  joyV = { x, y }; joyK.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+}
+const kol = new THREE.Raycaster();
+function krok(dt) {
+  let f = 0, s = 0;
+  if (klav.KeyW || klav.ArrowUp) f += 1; if (klav.KeyS || klav.ArrowDown) f -= 1;
+  if (klav.KeyA) s -= 1; if (klav.KeyD) s += 1;
+  if (klav.ArrowLeft) hrac.yaw += 1.6 * dt; if (klav.ArrowRight) hrac.yaw -= 1.6 * dt;
+  if (joyV) { f -= joyV.y; s += joyV.x; }
+  const vpred = new THREE.Vector3(-Math.sin(hrac.yaw), 0, -Math.cos(hrac.yaw)), vpravo = new THREE.Vector3(Math.cos(hrac.yaw), 0, -Math.sin(hrac.yaw));
+  let d = vpred.multiplyScalar(f).add(vpravo.multiplyScalar(s));
+  if (hrac.cil) {
+    const k = hrac.cil.clone().sub(hrac.p); k.y = 0;
+    if (k.length() < 0.25 || f || s) hrac.cil = null; else { d = k.normalize(); const ty = Math.atan2(-d.x, -d.z); let dy = ty - hrac.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); hrac.yaw += dy * Math.min(1, dt * 3); }
+  }
+  if (d.lengthSq() > 0) {
+    d.normalize(); const v = 1.6 * (klav.ShiftLeft ? 2 : 1); const posun = d.multiplyScalar(v * dt);
+    const z0 = (vyskaZeme(hrac.p.x, hrac.p.z) ?? 0);
+    kol.set(new THREE.Vector3(hrac.p.x, z0 + 0.6, hrac.p.z), posun.clone().normalize()); kol.far = posun.length() + 0.35;
+    const zed = kol.intersectObjects(casti.kolize.filter((o) => o.visible), false)[0];
+    const nx = hrac.p.x + posun.x, nz = hrac.p.z + posun.z; const z1 = vyskaZeme(nx, nz);
+    if (!zed && z1 !== null && Math.abs(z1 - z0) < 0.55) { hrac.p.x = nx; hrac.p.z = nz; }
+    else if (hrac.cil) hrac.cil = null;
+  }
+  const gy = vyskaZeme(hrac.p.x, hrac.p.z) ?? 0;
+  hrac.p.y += ((gy + OCI) - hrac.p.y) * Math.min(1, dt * 10);
+  camera.position.copy(hrac.p); camera.quaternion.copy(kvat(hrac.yaw, hrac.pitch));
+  // tlačítko vstupu v blízkosti dveří
+  let blizko = null;
+  for (const c of [1, 2, 3]) { const o = vstupy[c]; if (o && o.bod && Math.hypot(o.bod.x - hrac.p.x, o.bod.z - hrac.p.z) < 3.2) blizko = c; }
+  const vb = $('velky');
+  if (blizko) {
+    vb.innerHTML = BYTY[blizko].url ? `Vstoupit do jednotky ${blizko}<small>3D prohlídka bytu · ${BYTY[blizko].plocha}</small>` : `Jednotka ${blizko}<small>prohlídku připravujeme</small>`;
+    vb.dataset.c = blizko; vb.classList.add('vid');
+  } else vb.classList.remove('vid');
+}
+$('velky').addEventListener('click', () => otevriByt(+$('velky').dataset.c));
+
+// ------------------------------------------------------------------ smyčka
+const hodiny = new THREE.Clock();
+const kompasI = $('kompas').querySelector('i'), kompasB = $('kompas').querySelector('b');
+function snimek() {
+  const dt = Math.min(0.05, hodiny.getDelta());
+  U_CAS.value += dt;
+  if (stav === 'orbit') controls.update();
+  else if (stav === 'prelet') {
+    prelet.t = Math.min(1, prelet.t + dt / 1.3); const e = prelet.t < 0.5 ? 4 * prelet.t ** 3 : 1 - (-2 * prelet.t + 2) ** 3 / 2;
+    camera.position.lerpVectors(prelet.p0, prelet.p1, e); camera.quaternion.slerpQuaternions(prelet.q0, prelet.q1, e);
+    camera.fov = prelet.f0 + (prelet.f1 - prelet.f0) * e; camera.updateProjectionMatrix();
+    if (prelet.t >= 1) {
+      stav = prelet.cil;
+      if (stav === 'orbit') { controls.enabled = true; controls.target.copy(ulozeno.tgt); }
+      else hrac.p.copy(camera.position);
+    }
+  } else if (stav === 'chuze') krok(dt);
+  // kompas: úhel severu vůči směru pohledu
+  const v = new THREE.Vector3(); camera.getWorldDirection(v); v.y = 0; v.normalize();
+  const uhel = Math.atan2(v.x * SEVER.z - v.z * SEVER.x, v.x * SEVER.x + v.z * SEVER.z);
+  kompasI.style.transform = `rotate(${uhel}rad)`;
+  kompasB.style.transform = `translate(${Math.sin(uhel) * 17 - 4}px, ${-Math.cos(uhel) * 17 - 6}px)`;
+  for (const k of kruhy) k.ring.material.opacity = (BYTY[k.c].url ? 0.6 : 0.4) + 0.25 * Math.sin(performance.now() / 380);
+  // HTML štítky
+  const w2 = innerWidth / 2, h2 = innerHeight / 2;
+  for (const s of html) {
+    const orbitSt = s.el.classList.contains('orbit-stitek');
+    const p = s.pos.clone(); const d = p.distanceTo(camera.position); p.project(camera);
+    const predVstupy = camera.position.z < -DUM.YSV - 0.3;                 // kamera na straně vstupů (SV), jinak by štítky prosvítaly domem
+    const vid = p.z < 1 && d < (stav === 'chuze' && !orbitSt ? 18 : s.maxD) && (orbitSt ? (stav === 'orbit' && stitkyVid) : predVstupy) && Math.abs(p.x) < 1.1 && Math.abs(p.y) < 1.1;
+    s.el.style.display = vid ? '' : 'none';
+    if (vid) { s.el.style.left = `${w2 + p.x * w2}px`; s.el.style.top = `${h2 - p.y * h2}px`; }
+  }
+  composer.render();
+  requestAnimationFrame(snimek);
+}
+requestAnimationFrame(snimek);
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight); });
+</script>
+</body>
+</html>
