@@ -213,7 +213,7 @@ function kresli(){document.querySelectorAll('.kom').forEach(function(k){var s=k.
   moje.filter(function(m){return m.s===s&&!vid[m.t]}).forEach(function(m){h+='<div><small>Odesláno '+cas(m.c)+'</small>'+esc(m.t)+'</div>'});
   kl.innerHTML=h;})}
 function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
-fetch('odpovedi.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[]}).then(function(d){web=d||[];kresli()}).catch(function(){});
+fetch('https://raw.githubusercontent.com/frantisekdron/fd-nabidka-vn-lfauj/main/predani/odpovedi.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():[]}).then(function(d){web=d||[];kresli()}).catch(function(){});
 document.querySelectorAll('.kom').forEach(function(k){
   k.querySelector('.kb').addEventListener('click',function(){k.classList.toggle('on');if(k.classList.contains('on'))k.querySelector('textarea').focus()});
   k.querySelector('.ks').addEventListener('click',function(){var b=this, ta=k.querySelector('textarea'), st=k.querySelector('.kst'), t=ta.value.trim();
