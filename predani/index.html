@@ -18,7 +18,7 @@ table{border-collapse:collapse;width:100%;max-width:640px;font-size:15px}td{padd
 .m3d{aspect-ratio:16/10;border-radius:4px;overflow:hidden;background:#24221F;margin-top:14px}.m3d iframe{width:100%;height:100%;border:0;display:block}
 .need{border:1.5px solid var(--zl);background:linear-gradient(180deg,#f7ecd4,#fbf6ec);border-radius:6px;padding:16px 22px 10px;margin-top:14px}
 .need h3{font:400 24px "Didot","Bodoni Moda",serif;margin:0 0 8px;color:var(--vin)}.need ol{margin:0;padding-left:20px}.need li{margin:5px 0}
-.dal li{margin:6px 0}.bxw{margin:10px 0;display:flex;gap:10px;align-items:center;font-weight:600}
+.dal li{margin:6px 0}.new{background:#f3e7cc;border-left:3px solid var(--zl);padding:9px 14px;max-width:760px}.new a{color:var(--vin)}.pj{display:flex;gap:10px;flex-wrap:wrap}.bxw{margin:10px 0;display:flex;gap:10px;align-items:center;font-weight:600}
 .bx{display:inline-flex;cursor:pointer}.bxw .bx i{width:24px;height:24px;border:2px solid var(--gr);border-radius:4px;display:flex;align-items:center;justify-content:center;background:#fffdf8}.bxw .bx input:checked+i{background:var(--li);border-color:var(--li)}.bxw .bx input:checked+i::after{content:'✓';color:#fff;font-weight:700;font-style:normal}
 .kom{margin:16px 0 0;border-top:1px solid #e3d9c6;padding-top:10px}.kb{background:none;border:1px solid var(--zl);color:var(--vin);font:600 14px Mulish,system-ui,sans-serif;padding:7px 13px;border-radius:3px;cursor:pointer}
 .kb:hover{background:#f3e7cc}.kf{display:none;margin-top:8px}.kom.on .kf{display:block}.kf textarea{width:100%;max-width:720px;min-height:90px;border:1px solid #cfc3ab;border-radius:4px;padding:10px 12px;font:15px Mulish,system-ui,sans-serif;background:#fffdf8;display:block}
@@ -26,12 +26,13 @@ table{border-collapse:collapse;width:100%;max-width:640px;font-size:15px}td{padd
 .kl div{background:#efe6d3;border-left:3px solid var(--zl);padding:7px 11px;margin-top:8px;font-size:14.5px;max-width:720px;white-space:pre-wrap}.kl small{display:block;color:#7a7264;font-size:12px}
 @media(max-width:700px){.vyz,.dum{grid-template-columns:1fr}h1{font-size:31px}.m3d{aspect-ratio:4/5}}
 </style></head><body>
-<header><img src="img/logo_svetle.png" alt="Na Vinici · Valtice"><div class="eyb" style="margin-top:14px">Předání podkladů · 9. 11. 2026</div></header>
+<header><img src="img/logo_svetle.png" alt="Na Vinici · Valtice"><div class="eyb" style="margin-top:14px">Předání podkladů · 9. 11. 2026 · doplněno 17. 11. 2026</div></header>
 <div class="wrap">
 <h1>Dobrý den, pane Zajíčku,</h1>
 <p class="lead">posíláme podklady z natáčení ve Valticích: fotky do inzerátu, vyznačení pozemku s dostupností a ke schválení vzhled domu
 (vizualizace zepředu a zezadu, 3D model s umístěním na pozemku), 3D prohlídku jednotky 1 a vizuál projektu.
 Ke každé části nám můžete rovnou napsat připomínku tlačítkem pod ní.</p>
+<p class="new"><b>Nově 17. 11.:</b> <a href="#dum-na-pozemku">dům osazený do fotek z dronu ke schválení</a> a <a href="#prohlidky">3D prohlídky všech tří jednotek</a>.</p>
 
 <h2>Fotky do inzerátu</h2>
 <p class="mut">31 fotek z dronu (pozemek, okolí, zámek, Kolonáda na Rajstně, Lednice). Kliknutím fotku zvětšíte a můžete listovat; stáhnout ji jde přímo v galerii, všechny najednou tlačítkem.</p>
@@ -58,12 +59,24 @@ Ke každé části nám můžete rovnou napsat připomínku tlačítkem pod ní.
 <div class="bxw"><span class="bx" data-k="Vzhled domu a umístění na pozemku schvalujeme"></span> Vzhled domu a umístění na pozemku schvalujeme</div>
 <div class="kom" data-s="Vzhled domu"><button type="button" class="kb">💬 Připomínka k této části</button><div class="kf"><textarea placeholder="Napište nám, co upravit nebo na co se zeptat…"></textarea><button type="button" class="ks">Odeslat</button><span class="kst"></span></div><div class="kl"></div></div>
 
-<h2>3D prohlídka jednotky 1</h2>
-<p>Jednotka 1 (95,3 m², zahrada 115 m²) je hotová jako 3D prohlídka podle výkresů: obě podlaží, terasa a zahrada, pohled shora a přepínač
-prázdný / zařízený byt. Do prohlídky se dá vstoupit i z 3D modelu domu (zlatý štítek u dveří jednotky 1). Prohlídky jednotek 2 a 3 doplníme stejně.</p>
-<a class="p1" href="prohlidka-1/" target="_blank"><img src="img/prohlidka_uvod.jpg" alt="Úvodní obrazovka 3D prohlídky jednotky 1"><span>Projít jednotku 1 ve 3D →</span></a>
-<p class="mut">Jde o pracovní verzi – drobnosti (zařízení, materiály, světlo) ještě dolaďujeme.</p>
-<div class="kom" data-s="3D prohlídka jednotky 1"><button type="button" class="kb">💬 Připomínka k této části</button><div class="kf"><textarea placeholder="Napište nám, co upravit nebo na co se zeptat…"></textarea><button type="button" class="ks">Odeslat</button><span class="kst"></span></div><div class="kl"></div></div>
+<h2 id="dum-na-pozemku">Dům na pozemku – vizualizace ke schválení</h2>
+<p>Schválený dům jsme ze 3D modelu osadili do fotek z dronu: stejná poloha, výška a materiály na všech záběrech. Zahrady vedou až k hranici pozemku,
+mezi nimi a po obvodu je plot, parkování je otevřené do ulice s opěrnou zídkou a plotem. Okolí je skutečná fotka. Výsadba a zařízení teras jsou návrh.
+Kliknutím vizualizaci zvětšíte a můžete listovat; stáhnout ji jde v galerii, pod náhledem nebo všechny najednou.</p>
+<a class="btn" href="Valtice_NaVinici_vizualizace.zip" download>⬇ Stáhnout všechny vizualizace (46 MB)</a>
+<div class="vyz"><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_01_dron_z_ulice.jpg" data-dl="viz/Valtice_NaVinici_01_dron_z_ulice.jpg" data-dn="Valtice_NaVinici_01_dron_z_ulice.jpg" data-cap="Z ulice Na Vinici (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_01_dron_z_ulice.jpg" alt="Z ulice Na Vinici"></a><figcaption>Z ulice Na Vinici · <a href="viz/Valtice_NaVinici_01_dron_z_ulice.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_08_strana_vchodu.jpg" data-dl="viz/Valtice_NaVinici_08_strana_vchodu.jpg" data-dn="Valtice_NaVinici_08_strana_vchodu.jpg" data-cap="Strana se vstupy a parkováním (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_08_strana_vchodu.jpg" alt="Strana se vstupy a parkováním"></a><figcaption>Strana se vstupy a parkováním · <a href="viz/Valtice_NaVinici_08_strana_vchodu.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_04_detail_pozemku.jpg" data-dl="viz/Valtice_NaVinici_04_detail_pozemku.jpg" data-dn="Valtice_NaVinici_04_detail_pozemku.jpg" data-cap="Detail pozemku a zahrad (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_04_detail_pozemku.jpg" alt="Detail pozemku a zahrad"></a><figcaption>Detail pozemku a zahrad · <a href="viz/Valtice_NaVinici_04_detail_pozemku.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_02_dron_zahrady_a_bocni_strana.jpg" data-dl="viz/Valtice_NaVinici_02_dron_zahrady_a_bocni_strana.jpg" data-dn="Valtice_NaVinici_02_dron_zahrady_a_bocni_strana.jpg" data-cap="Zahrady a boční strana (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_02_dron_zahrady_a_bocni_strana.jpg" alt="Zahrady a boční strana"></a><figcaption>Zahrady a boční strana · <a href="viz/Valtice_NaVinici_02_dron_zahrady_a_bocni_strana.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_09_dron_kolmo_na_zahrady_cely.jpg" data-dl="viz/Valtice_NaVinici_09_dron_kolmo_na_zahrady_cely.jpg" data-dn="Valtice_NaVinici_09_dron_kolmo_na_zahrady_cely.jpg" data-cap="Pohled na zahrady (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_09_dron_kolmo_na_zahrady_cely.jpg" alt="Pohled na zahrady"></a><figcaption>Pohled na zahrady · <a href="viz/Valtice_NaVinici_09_dron_kolmo_na_zahrady_cely.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_10_kolmo_na_zahrady.jpg" data-dl="viz/Valtice_NaVinici_10_kolmo_na_zahrady.jpg" data-dn="Valtice_NaVinici_10_kolmo_na_zahrady.jpg" data-cap="Zahrady zblízka (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_10_kolmo_na_zahrady.jpg" alt="Zahrady zblízka"></a><figcaption>Zahrady zblízka · <a href="viz/Valtice_NaVinici_10_kolmo_na_zahrady.jpg" download>⬇ plné rozlišení</a></figcaption></figure><figure><a class="lb" data-g="viz" href="velke/Valtice_NaVinici_03_dron_celek_s_Valticemi.jpg" data-dl="viz/Valtice_NaVinici_03_dron_celek_s_Valticemi.jpg" data-dn="Valtice_NaVinici_03_dron_celek_s_Valticemi.jpg" data-cap="Celek s Valticemi (vizualizace)"><img loading="lazy" src="nahled/Valtice_NaVinici_03_dron_celek_s_Valticemi.jpg" alt="Celek s Valticemi"></a><figcaption>Celek s Valticemi · <a href="viz/Valtice_NaVinici_03_dron_celek_s_Valticemi.jpg" download>⬇ plné rozlišení</a></figcaption></figure></div>
+<p class="mut">Všechny snímky v této části jsou vizualizace – dům se teprve bude stavět.</p>
+<div class="bxw"><span class="bx" data-k="Dům na pozemku a zahrady na vizualizacích schvalujeme"></span> Dům na pozemku a zahrady na vizualizacích schvalujeme</div>
+<div class="kom" data-s="Dům na pozemku – vizualizace"><button type="button" class="kb">💬 Připomínka k této části</button><div class="kf"><textarea placeholder="Napište nám, co upravit nebo na co se zeptat…"></textarea><button type="button" class="ks">Odeslat</button><span class="kst"></span></div><div class="kl"></div></div>
+
+<h2 id="prohlidky">3D prohlídky jednotek</h2>
+<p>Všechny tři jednotky jsou hotové jako 3D prohlídky podle výkresů: obě podlaží, terasa a zahrada, pohled shora a přepínač
+prázdný / zařízený byt. Do jednotky 1 se dá vstoupit i z 3D modelu domu (zlatý štítek u dveří).</p>
+<a class="p1" href="prohlidka-1/" target="_blank"><img src="img/prohlidka_uvod.jpg" alt="Úvodní obrazovka 3D prohlídky"><span>Projít jednotku 1 ve 3D →</span></a>
+<div class="pj"><a class="btn" href="prohlidka-1/" target="_blank">Jednotka 1 →</a><a class="btn" href="prohlidka-2/" target="_blank">Jednotka 2 →</a><a class="btn" href="prohlidka-3/" target="_blank">Jednotka 3 →</a></div>
+<p class="mut">Zařízení v prohlídkách je ilustrační (vizualizace).</p>
+<div class="bxw"><span class="bx" data-k="3D prohlídky jednotek 1–3 schvalujeme"></span> 3D prohlídky jednotek 1–3 schvalujeme</div>
+<div class="kom" data-s="3D prohlídky jednotek"><button type="button" class="kb">💬 Připomínka k této části</button><div class="kf"><textarea placeholder="Napište nám, co upravit nebo na co se zeptat…"></textarea><button type="button" class="ks">Odeslat</button><span class="kst"></span></div><div class="kl"></div></div>
 
 <h2>Vizuál projektu</h2>
 <p>Pro film a fotky jsme připravili jednoduchý předběžný vizuál „Na Vinici“. Pokud máte vlastní logo nebo barvy, pošlete nám je a vyměníme je.</p>
@@ -72,9 +85,8 @@ prázdný / zařízený byt. Do prohlídky se dá vstoupit i z 3D modelu domu (z
 <div class="kom" data-s="Vizuál projektu"><button type="button" class="kb">💬 Připomínka k této části</button><div class="kf"><textarea placeholder="Napište nám, co upravit nebo na co se zeptat…"></textarea><button type="button" class="ks">Odeslat</button><span class="kst"></span></div><div class="kl"></div></div>
 
 <h2>Co bude dál</h2>
-<ul class="dal"><li><b>Dům v záběrech z dronu</b> ve filmu a na třech fotkách se zákresem tří zahrad.</li>
-<li><b>Vizualizace interiérů:</b> první (obývák s jídelnou) pošleme ke schválení stylu, pak zbylých pět.</li>
-<li><b>3D prohlídky</b> všech tří jednotek s vaším logem.</li><li><b>Film</b> zhruba 60 s ve 4K.</li></ul>
+<ul class="dal"><li><b>Dům v záběrech z dronu</b> ve filmu – vyroste na pozemku.</li>
+<li><b>Vizualizace interiérů</b> jako průlety zařízenými jednotkami.</li><li><b>Film</b> zhruba 60 s ve 4K.</li></ul>
 
 <div class="need"><h3>Co od vás potřebujeme</h3><ol>
 <li>Standard vybavení (podlahy, obklady, kuchyň, koupelna), aby vizualizace interiérů odpovídaly skutečnosti.</li>
