@@ -3,17 +3,17 @@
  "encoding": {
   "type": "pow",
   "gamma": 2.2,
-  "scale": 1.8221173286437988
+  "scale": 1.8180755376815796
  },
- "exposure": 4.82954629850858,
+ "exposure": 4.84028293523041,
  "variants": [
   {
-   "key": "6e88c06d",
+   "key": "16eb15e6",
    "atlas": {
-    "high": "lightmap-6e88c06d-2048.jpg",
-    "low": "lightmap-6e88c06d-1024.jpg"
+    "high": "lightmap-16eb15e6-2048.jpg",
+    "low": "lightmap-16eb15e6-1024.jpg"
    },
-   "uv": "lightmap-6e88c06d-uv-bin.webm",
+   "uv": "lightmap-16eb15e6-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-plaster@1pp",
@@ -89,8 +89,8 @@
      "name": "shell-paint@1pp",
      "verts": 2376,
      "tris": 1734,
-     "extra": 250,
-     "remap": 375
+     "extra": 252,
+     "remap": 378
     },
     {
      "name": "shell-ceiling@1pp",
@@ -157,29 +157,29 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 16,
-     "remap": 24
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 152,
+     "remap": 381
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 251,
+     "remap": 520
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
@@ -393,12 +393,12 @@
    }
   },
   {
-   "key": "a36d25f5",
+   "key": "ff7b4467",
    "atlas": {
-    "high": "lightmap-a36d25f5-2048.jpg",
-    "low": "lightmap-a36d25f5-1024.jpg"
+    "high": "lightmap-ff7b4467-2048.jpg",
+    "low": "lightmap-ff7b4467-1024.jpg"
    },
-   "uv": "lightmap-a36d25f5-uv-bin.webm",
+   "uv": "lightmap-ff7b4467-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-plaster@1pp",
@@ -542,66 +542,66 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 16,
-     "remap": 24
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 152,
+     "remap": 381
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 251,
+     "remap": 520
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furnishing-wood@1pp",
-     "verts": 2460,
-     "tris": 1460,
+     "verts": 2484,
+     "tris": 1472,
      "extra": 40,
-     "remap": 58
+     "remap": 60
     },
     {
      "name": "furnishing-ceramic@1pp",
-     "verts": 450,
-     "tris": 408,
-     "extra": 56,
-     "remap": 83
+     "verts": 690,
+     "tris": 624,
+     "extra": 88,
+     "remap": 130
     },
     {
      "name": "furnishing-foliage@1pp",
-     "verts": 936,
-     "tris": 1016,
-     "extra": 826,
-     "remap": 1159
+     "verts": 999,
+     "tris": 1096,
+     "extra": 896,
+     "remap": 1278
     },
     {
      "name": "furnishing-paint@1pp",
-     "verts": 1064,
-     "tris": 648,
-     "extra": 160,
-     "remap": 228
+     "verts": 1604,
+     "tris": 936,
+     "extra": 176,
+     "remap": 250
     },
     {
      "name": "furnishing-rug@1pp",
-     "verts": 1224,
-     "tris": 1680,
-     "extra": 315,
-     "remap": 526
+     "verts": 816,
+     "tris": 1120,
+     "extra": 316,
+     "remap": 523
     },
     {
      "name": "furnishing-screen@1pp",
@@ -626,8 +626,8 @@
     },
     {
      "name": "furnishing-paint@1np",
-     "verts": 624,
-     "tris": 312,
+     "verts": 576,
+     "tris": 288,
      "extra": 0,
      "remap": 0
     },
@@ -864,5 +864,5 @@
  ],
  "doorLeaves": "dynamic",
  "sun": 3.0,
- "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 45 texelů/m, 2026-11-16 16:45"
+ "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 44 texelů/m, 2026-11-17 16:54"
 }

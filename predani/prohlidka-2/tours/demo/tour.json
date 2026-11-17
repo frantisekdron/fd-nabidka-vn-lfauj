@@ -2119,6 +2119,7 @@
    "finish": "paint"
   },
   "exteriorFrameColor": "#383E42",
+  "leafShadows": false,
   "screens": [
    {
     "id": "tv-obyvak",
@@ -2531,15 +2532,32 @@
      "solid": false
     },
     {
-     "id": "koupelna-predlozka",
-     "kind": "rug",
+     "id": "koupelna-policka",
+     "kind": "shelf",
      "roomId": "koupelna",
-     "x": 8.1,
-     "z": -0.876,
-     "facing": "N",
-     "w": 0.8,
-     "d": 0.5,
-     "color": 15196888
+     "x": 8.97,
+     "z": -1.446,
+     "facing": "W",
+     "w": 0.5,
+     "d": 0.12,
+     "variant": "bath",
+     "y": 1.08,
+     "solid": false,
+     "color": 13215612
+    },
+    {
+     "id": "koupelna-zebrik",
+     "kind": "towelRadiator",
+     "roomId": "koupelna",
+     "x": 6.59,
+     "z": -1.45,
+     "facing": "E",
+     "w": 0.5,
+     "d": 0.08,
+     "y": 0.3,
+     "h": 1.2,
+     "solid": false,
+     "towelColor": 9416351
     },
     {
      "id": "loznice-postel",
@@ -2899,9 +2917,6 @@
  "photos": [],
  "lightmap": {
   "url": "lightmap/lightmap.json"
- },
- "backdrop": {
-  "url": "vyhled/vyhled.json"
  },
  "listing": {
   "headline": "Řadový dům 4+kk · Valtice – Na Vinici · jednotka 2",

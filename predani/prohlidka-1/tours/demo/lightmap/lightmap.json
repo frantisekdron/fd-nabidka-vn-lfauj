@@ -3,17 +3,17 @@
  "encoding": {
   "type": "pow",
   "gamma": 2.2,
-  "scale": 1.915938377380371
+  "scale": 1.9777554273605347
  },
- "exposure": 4.593049601121351,
+ "exposure": 4.449488484905473,
  "variants": [
   {
-   "key": "46621895",
+   "key": "446c9d16",
    "atlas": {
-    "high": "lightmap-46621895-2048.jpg",
-    "low": "lightmap-46621895-1024.jpg"
+    "high": "lightmap-446c9d16-2048.jpg",
+    "low": "lightmap-446c9d16-1024.jpg"
    },
-   "uv": "lightmap-46621895-uv-bin.webm",
+   "uv": "lightmap-446c9d16-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-wallTop@1pp",
@@ -157,29 +157,29 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 16,
-     "remap": 24
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 152,
+     "remap": 381
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 251,
+     "remap": 521
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
@@ -393,12 +393,12 @@
    }
   },
   {
-   "key": "14755435",
+   "key": "bed29b96",
    "atlas": {
-    "high": "lightmap-14755435-2048.jpg",
-    "low": "lightmap-14755435-1024.jpg"
+    "high": "lightmap-bed29b96-2048.jpg",
+    "low": "lightmap-bed29b96-1024.jpg"
    },
-   "uv": "lightmap-14755435-uv-bin.webm",
+   "uv": "lightmap-bed29b96-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-wallTop@1pp",
@@ -542,66 +542,66 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 16,
-     "remap": 24
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 152,
+     "remap": 381
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 251,
+     "remap": 521
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furnishing-wood@1pp",
-     "verts": 2460,
-     "tris": 1460,
+     "verts": 2484,
+     "tris": 1472,
      "extra": 44,
-     "remap": 66
+     "remap": 64
     },
     {
      "name": "furnishing-ceramic@1pp",
-     "verts": 450,
-     "tris": 408,
-     "extra": 44,
-     "remap": 66
+     "verts": 690,
+     "tris": 624,
+     "extra": 68,
+     "remap": 102
     },
     {
      "name": "furnishing-foliage@1pp",
-     "verts": 936,
-     "tris": 1016,
-     "extra": 826,
-     "remap": 1172
+     "verts": 999,
+     "tris": 1096,
+     "extra": 896,
+     "remap": 1291
     },
     {
      "name": "furnishing-paint@1pp",
-     "verts": 848,
-     "tris": 540,
-     "extra": 160,
-     "remap": 229
+     "verts": 1388,
+     "tris": 828,
+     "extra": 176,
+     "remap": 253
     },
     {
      "name": "furnishing-rug@1pp",
-     "verts": 1224,
-     "tris": 1680,
-     "extra": 474,
-     "remap": 868
+     "verts": 816,
+     "tris": 1120,
+     "extra": 316,
+     "remap": 523
     },
     {
      "name": "furnishing-screen@1pp",
@@ -626,8 +626,8 @@
     },
     {
      "name": "furnishing-paint@1np",
-     "verts": 624,
-     "tris": 312,
+     "verts": 576,
+     "tris": 288,
      "extra": 0,
      "remap": 0
     },
@@ -864,5 +864,5 @@
  ],
  "doorLeaves": "dynamic",
  "sun": 3.0,
- "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 43 texelů/m, 2026-11-09 10:29"
+ "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 44 texelů/m, 2026-11-17 16:57"
 }

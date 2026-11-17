@@ -3,17 +3,17 @@
  "encoding": {
   "type": "pow",
   "gamma": 2.2,
-  "scale": 2.052220106124878
+  "scale": 2.0171215534210205
  },
- "exposure": 4.28803907228873,
+ "exposure": 4.3626523077279495,
  "variants": [
   {
-   "key": "fa65ac87",
+   "key": "0abfa4e8",
    "atlas": {
-    "high": "lightmap-fa65ac87-2048.jpg",
-    "low": "lightmap-fa65ac87-1024.jpg"
+    "high": "lightmap-0abfa4e8-2048.jpg",
+    "low": "lightmap-0abfa4e8-1024.jpg"
    },
-   "uv": "lightmap-fa65ac87-uv-bin.webm",
+   "uv": "lightmap-0abfa4e8-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-plaster@1pp",
@@ -157,29 +157,29 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 533,
-     "remap": 940
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 712,
+     "remap": 1378
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 239,
+     "remap": 515
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
@@ -393,12 +393,12 @@
    }
   },
   {
-   "key": "dea8ce2b",
+   "key": "b296559d",
    "atlas": {
-    "high": "lightmap-dea8ce2b-2048.jpg",
-    "low": "lightmap-dea8ce2b-1024.jpg"
+    "high": "lightmap-b296559d-2048.jpg",
+    "low": "lightmap-b296559d-1024.jpg"
    },
-   "uv": "lightmap-dea8ce2b-uv-bin.webm",
+   "uv": "lightmap-b296559d-uv-bin.webm",
    "meshes": [
     {
      "name": "shell-plaster@1pp",
@@ -542,66 +542,66 @@
     },
     {
      "name": "furniture-ceramic@1pp",
-     "verts": 1604,
-     "tris": 2152,
-     "extra": 533,
-     "remap": 940
+     "verts": 2335,
+     "tris": 3240,
+     "extra": 712,
+     "remap": 1378
     },
     {
      "name": "furniture-paint@1pp",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furniture-ceramic@1np",
-     "verts": 624,
-     "tris": 860,
-     "extra": 0,
-     "remap": 0
+     "verts": 1355,
+     "tris": 1948,
+     "extra": 239,
+     "remap": 515
     },
     {
      "name": "furniture-paint@1np",
-     "verts": 24,
-     "tris": 12,
+     "verts": 48,
+     "tris": 24,
      "extra": 0,
      "remap": 0
     },
     {
      "name": "furnishing-wood@1pp",
-     "verts": 2460,
-     "tris": 1460,
-     "extra": 42,
-     "remap": 63
+     "verts": 2484,
+     "tris": 1472,
+     "extra": 44,
+     "remap": 65
     },
     {
      "name": "furnishing-ceramic@1pp",
-     "verts": 450,
-     "tris": 408,
-     "extra": 56,
-     "remap": 80
+     "verts": 690,
+     "tris": 624,
+     "extra": 88,
+     "remap": 128
     },
     {
      "name": "furnishing-foliage@1pp",
-     "verts": 936,
-     "tris": 1016,
-     "extra": 803,
-     "remap": 1124
+     "verts": 999,
+     "tris": 1096,
+     "extra": 849,
+     "remap": 1193
     },
     {
      "name": "furnishing-paint@1pp",
-     "verts": 920,
-     "tris": 576,
-     "extra": 160,
-     "remap": 237
+     "verts": 1460,
+     "tris": 864,
+     "extra": 176,
+     "remap": 261
     },
     {
      "name": "furnishing-rug@1pp",
-     "verts": 1224,
-     "tris": 1680,
-     "extra": 458,
-     "remap": 848
+     "verts": 816,
+     "tris": 1120,
+     "extra": 312,
+     "remap": 565
     },
     {
      "name": "furnishing-screen@1pp",
@@ -626,8 +626,8 @@
     },
     {
      "name": "furnishing-paint@1np",
-     "verts": 624,
-     "tris": 312,
+     "verts": 576,
+     "tris": 288,
      "extra": 0,
      "remap": 0
     },
@@ -864,5 +864,5 @@
  ],
  "doorLeaves": "dynamic",
  "sun": 3.0,
- "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 42 texelů/m, 2026-11-16 16:32"
+ "note": "Cycles 2048² × 768 vzorků, slunce 3.0, obloha 1.0, lampy 10.0 W, hustota 42 texelů/m, 2026-11-17 16:51"
 }
