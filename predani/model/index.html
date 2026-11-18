@@ -84,7 +84,7 @@
   <button class="btn chuze-jen" id="btnZpet" type="button">Pohled z výšky</button>
   <button class="btn on" id="btnOkoli" type="button">Okolí</button>
   <button class="btn on" id="btnZahrada" type="button">Zahrady (návrh)</button>
-  <button class="btn orbit-jen" id="btnStitky" type="button">Jednotky</button>
+  <button class="btn orbit-jen" id="btnStitky" type="button">Domy</button>
 </div>
 <div class="kompas" id="kompas"><i></i><b>S</b></div>
 <div class="joy" id="joy"><span></span></div>
@@ -115,11 +115,11 @@ const params = new URLSearchParams(location.search);
 const MODEL = params.get('model') || 'dum-glb.webm';
 const LM_JSON = params.get('lm') || 'lightmapy.json';                    // zapečené světlo z Blenderu (bake_svetlo.py)
 const LM_K = +(params.get('lmk') || 1.0);
-// prohlídky bytů: jednotka 1 hotová, 2 a 3 se doplní po schválení (stačí sem dát adresu nebo ?byt2=…)
+// prohlídky bytů: všechny tři domy (18. 11. 2026); ?bytN= (prázdné) = připravujeme
 const BYTY = {
   1: { url: params.has('byt1') ? (params.get('byt1') || null) : '../prohlidka-1/', plocha: '95,3 m²', zahrada: '115 m²' },   // ?byt1= (prázdné) = připravujeme
-  2: { url: params.get('byt2') || null, plocha: '100,6 m²', zahrada: '82 m²' },
-  3: { url: params.get('byt3') || null, plocha: '95,3 m²', zahrada: '169 m²' },
+  2: { url: params.has('byt2') ? (params.get('byt2') || null) : '../prohlidka-2/', plocha: '100,6 m²', zahrada: '82 m²' },
+  3: { url: params.has('byt3') ? (params.get('byt3') || null) : '../prohlidka-3/', plocha: '95,3 m²', zahrada: '169 m²' },
 };
 const DOTYK = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 if (DOTYK) document.body.classList.add('dotyk');
@@ -136,7 +136,7 @@ const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'hi
 renderer.setPixelRatio(Math.min(devicePixelRatio, DOTYK ? 2 : 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = +(params.get('exp') || 1.2);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = +(params.get('exp') || 1.35);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.prepend(renderer.domElement);
 const canvas = renderer.domElement;
@@ -191,8 +191,16 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true; controls.dampingFactor = 0.08;
 controls.target.copy(STRED); controls.maxPolarAngle = 86 * DEG; controls.minDistance = 8; controls.maxDistance = 140;
 camera.position.copy(STRED).add(new THREE.Vector3(-26, 22, 30).applyAxisAngle(new THREE.Vector3(0, 1, 0), 0));
-camera.position.copy(W(5, -40, 22));
+// výchozí pohled podle schválených exteriérů (04 detail pozemku, 10 zahrady), 18. 11. 2026: šikmo od zahrad; ?kam=X,Y,Z ladí pohled
+const KAM = (params.get('kam') || '34,-40,19').split(',').map(Number);
+camera.position.copy(W(KAM[0], KAM[1], KAM[2]));
+if (innerWidth < innerHeight) {                                       // na výšku (telefon) odstoupit, ať je vidět celý dům
+  const v = camera.position.clone().sub(STRED); camera.position.copy(STRED).addScaledVector(v, Math.min(2.1, Math.pow(innerHeight / innerWidth, 0.8)));
+}
 
+// ladění barev podle 7 schválených exteriérů (18. 11. 2026): taška tmavší cihlová, dřevo světlejší medové, tráva podzimně tlumená
+const TON = { taska_cc0: [0.78, 0.64, 0.58], hrebenac_cc0: [0.78, 0.64, 0.58], drevo_cc0: [1.18, 1.04, 0.86], trava_cc0: [0.97, 0.95, 0.78],
+  zivy_plot: [0.92, 0.98, 0.84], dlazba_velka_cc0: [1.05, 1.03, 1.0] };
 const casti = { dum: [], teren: [], zahrada: [], okoli: [], kolize: [], zem: [] };
 const vstupy = {};
 const loader = new GLTFLoader();
@@ -207,6 +215,7 @@ loader.load(MODEL, (g) => {
     const grp = (o.userData && o.userData.skupina) || nm.split('_')[0];
     if (grp === 'zelen' || grp === 'okoli_budovy' || /^okoli_budovy/.test(nm)) { o.visible = false; return; }   // bez hmot sousedů (Franta 9. 11.)                 // provizorní stromky a keře (jen bez stažených modelů)
     o.castShadow = !['teren', 'interier'].includes(grp); o.receiveShadow = true;
+    if (m && TON[m.name]) { const t = TON[m.name]; m.color.setRGB(m.color.r * t[0], m.color.g * t[1], m.color.b * t[2]); }   // barvy podle schválených exteriérů
     if (m) {
       if (m.map) m.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
       if (/pletivo/.test(m.name)) { m.alphaTest = 0.5; m.transparent = false; m.side = THREE.DoubleSide; o.castShadow = false; }
@@ -358,7 +367,7 @@ function stitek(el, pos, minD = 0, maxD = 1e9) { document.body.appendChild(el); 
 for (const j of JEDNOTKY) {
   const b = BYTY[j.c];
   const el = document.createElement('div'); el.className = 'stitek orbit-stitek';
-  el.innerHTML = `<div class="c">${j.c}</div><div class="i">Jednotka ${j.c}<small>${b.plocha} · zahrada ${b.zahrada}</small>${b.url ? '<em class="p3d">● 3D prohlídka – vstoupit</em>' : ''}</div>`;
+  el.innerHTML = `<div class="c">${j.c}</div><div class="i">Dům ${j.c}<small>${b.plocha} · zahrada ${b.zahrada}</small>${b.url ? '<em class="p3d">● 3D prohlídka – vstoupit</em>' : ''}</div>`;
   el.addEventListener('click', () => (b.url ? otevriByt(j.c) : letKeVstupu(j.c)));
   stitek(el, W((j.X[0] + j.X[1]) / 2, (DUM.YSV + DUM.YJZ) / 2, 6.6), 0, 160);
 }
@@ -374,7 +383,7 @@ function postavVstupy() {
     if (!BYTY[c].url) { ring.material.color.set(0x8d867b); ring.material.opacity = 0.6; }
     scene.add(ring); kruhy.push({ ring, c });
     const el = document.createElement('div'); el.className = 'vstup' + (BYTY[c].url ? '' : ' ceka');
-    el.innerHTML = `<span class="dot"></span><span>${BYTY[c].url ? 'Vstoupit · jednotka ' + c : 'Jednotka ' + c}<small>${BYTY[c].url ? '3D prohlídka bytu' : 'prohlídku připravujeme'}</small></span>`;
+    el.innerHTML = `<span class="dot"></span><span>${BYTY[c].url ? 'Vstoupit · dům ' + c : 'Dům ' + c}<small>${BYTY[c].url ? '3D prohlídka domu' : 'prohlídku připravujeme'}</small></span>`;
     el.addEventListener('click', () => otevriByt(c));
     stitek(el, p.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
     vstupy[c].bod = zemP;
@@ -382,7 +391,7 @@ function postavVstupy() {
 }
 function otevriByt(c) {
   const b = BYTY[c];
-  if (!b.url) { toast(`Prohlídku jednotky ${c} doplníme po schválení modelu domu a bytu.`); return; }
+  if (!b.url) { toast(`Prohlídku domu ${c} doplníme po schválení modelu domu a bytu.`); return; }
   const u = new URL(b.url, location.href);
   u.searchParams.set('start', 'vstup'); u.searchParams.set('zpet', location.href.split('#')[0]);
   location.href = u.toString();
@@ -407,7 +416,7 @@ let stav = 'orbit';                                     // orbit | prelet | chuz
 const hrac = { p: new THREE.Vector3(), yaw: 0, pitch: -0.05, cil: null };
 const ulozeno = { pos: new THREE.Vector3(), tgt: new THREE.Vector3() };
 let prelet = null;
-const NAP_O = DOTYK ? 'Otáčení jedním prstem · přiblížení dvěma prsty · ťukni na číslo jednotky' : 'Táhni myší = otáčení · kolečko = přiblížení · klikni na číslo jednotky';
+const NAP_O = DOTYK ? 'Otáčení jedním prstem · přiblížení dvěma prsty · ťukni na číslo domu' : 'Táhni myší = otáčení · kolečko = přiblížení · klikni na číslo domu';
 const NAP_C = DOTYK ? 'Joystick = chůze · táhni prstem = rozhlížení · ťukni na zem = dojdi tam' : 'W A S D / šipky = chůze · táhni myší = rozhlížení · klik na zem = dojdi tam';
 $('napoveda').textContent = NAP_O;
 const ray = new THREE.Raycaster();
@@ -510,7 +519,7 @@ function krok(dt) {
   for (const c of [1, 2, 3]) { const o = vstupy[c]; if (o && o.bod && Math.hypot(o.bod.x - hrac.p.x, o.bod.z - hrac.p.z) < 3.2) blizko = c; }
   const vb = $('velky');
   if (blizko) {
-    vb.innerHTML = BYTY[blizko].url ? `Vstoupit do jednotky ${blizko}<small>3D prohlídka bytu · ${BYTY[blizko].plocha}</small>` : `Jednotka ${blizko}<small>prohlídku připravujeme</small>`;
+    vb.innerHTML = BYTY[blizko].url ? `Vstoupit do domu ${blizko}<small>3D prohlídka domu · ${BYTY[blizko].plocha}</small>` : `Dům ${blizko}<small>prohlídku připravujeme</small>`;
     vb.dataset.c = blizko; vb.classList.add('vid');
   } else vb.classList.remove('vid');
 }
@@ -553,6 +562,7 @@ function snimek() {
   requestAnimationFrame(snimek);
 }
 requestAnimationFrame(snimek);
+if (params.has('debug')) window.__model = { THREE, scene, camera, controls, renderer, W, STRED };
 addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight);
   composer.setSize(innerWidth, innerHeight); });
 </script>
