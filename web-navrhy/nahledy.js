@@ -86,6 +86,26 @@ $$('[data-lightbox]').forEach(btn=>btn.addEventListener('click',()=>{
 }));
 $('.close-lightbox').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+const modelButton = $('#model-switch');
+const modelMount = $('#model-mount');
+const modelLink = $('#model-standalone');
+modelButton.addEventListener('click', () => {
+ const active = modelMount.hidden;
+ if (active) {
+  const frame = document.createElement('iframe');
+  frame.title = 'Interaktivní 3D model domů Na Vinici na pozemku';
+  frame.src = modelLink.href;
+  frame.allowFullscreen = true;
+  modelMount.replaceChildren(frame);
+ } else {
+  modelMount.replaceChildren();
+ }
+ modelMount.hidden = !active;
+ $('#model-poster').hidden = active;
+ modelLink.hidden = !active;
+ modelButton.setAttribute('aria-pressed', String(active));
+ modelButton.textContent = active ? 'Zpět na vizualizaci' : 'Prozkoumat dům ve 3D ↗';
+});
 
 const approvalVariant=$('#approval-variant');
 const notes=$('#approval-notes');
