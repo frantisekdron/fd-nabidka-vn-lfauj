@@ -373,6 +373,9 @@ for (const j of JEDNOTKY) {
 }
 const kruhMat = new THREE.MeshBasicMaterial({ color: 0xC8A15A, transparent: true, opacity: 0.85, depthWrite: false });
 const kruhy = [];
+const hitMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false });   // neviditelný terč přes celý kruh (prstenec se na telefonu nedal trefit)
+function terc(k) { const h = new THREE.Mesh(new THREE.CircleGeometry(0.9, 28), hitMat); h.rotation.x = -Math.PI / 2; h.position.copy(k.ring.position); h.position.y += 0.01; scene.add(h); k.hit = h; }
+const vstupniBody = [];                                 // všechna místa, kudy se dá vstoupit do domu (ulice + terasa)
 function postavVstupy() {
   for (const c of [1, 2, 3]) {
     const o = vstupy[c]; if (!o) continue;
@@ -386,14 +389,29 @@ function postavVstupy() {
     el.innerHTML = `<span class="dot"></span><span>${BYTY[c].url ? 'Vstoupit · dům ' + c : 'Dům ' + c}<small>${BYTY[c].url ? '3D prohlídka domu' : 'prohlídku připravujeme'}</small></span>`;
     el.addEventListener('click', () => otevriByt(c));
     stitek(el, p.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
-    vstupy[c].bod = zemP;
+    vstupy[c].bod = zemP; kruhy[kruhy.length - 1].start = 'vstup'; terc(kruhy[kruhy.length - 1]);
+    vstupniBody.push({ c, bod: zemP, start: 'vstup', odkud: '' });
+  }
+  // 20. 11. Franta: „dej tam možnost vstoupit i ze zahrady z těch teras“ → značka na terase každého domu, prohlídka začne v obýváku
+  for (const j of JEDNOTKY) {
+    const t = W((j.X[0] + j.X[1]) / 2, DUM.YJZ - 1.5); const gy = vyskaZeme(t.x, t.z, 1.2) ?? vyskaZeme(t.x, t.z) ?? -2.9;
+    const bod = new THREE.Vector3(t.x, gy, t.z); const ma = BYTY[j.c].url;
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.45, 0.55, 48), kruhMat.clone());
+    ring.rotation.x = -Math.PI / 2; ring.position.copy(bod).add(new THREE.Vector3(0, 0.04, 0));
+    if (!ma) { ring.material.color.set(0x8d867b); ring.material.opacity = 0.6; }
+    scene.add(ring); kruhy.push({ ring, c: j.c, start: 'obyvak' }); terc(kruhy[kruhy.length - 1]);
+    const el = document.createElement('div'); el.className = 'vstup' + (ma ? '' : ' ceka');
+    el.innerHTML = `<span class="dot"></span><span>${ma ? 'Vstoupit z terasy · dům ' + j.c : 'Dům ' + j.c}<small>${ma ? '3D prohlídka domu' : 'prohlídku připravujeme'}</small></span>`;
+    el.addEventListener('click', () => otevriByt(j.c, 'obyvak'));
+    stitek(el, bod.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
+    vstupniBody.push({ c: j.c, bod, start: 'obyvak', odkud: ' z terasy' });
   }
 }
-function otevriByt(c) {
+function otevriByt(c, start = 'vstup') {
   const b = BYTY[c];
   if (!b.url) { toast(`Prohlídku domu ${c} doplníme po schválení modelu domu a bytu.`); return; }
   const u = new URL(b.url, location.href);
-  u.searchParams.set('start', 'vstup'); u.searchParams.set('zpet', location.href.split('#')[0]);
+  u.searchParams.set('start', start); u.searchParams.set('zpet', location.href.split('#')[0]);
   location.href = u.toString();
 }
 let toastT = 0;
@@ -472,8 +490,8 @@ canvas.addEventListener('pointerup', (e) => {
   tah = null; if (!klik) return;
   const v = new THREE.Vector2((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
   ray.setFromCamera(v, camera); ray.far = 400;
-  const kr = ray.intersectObjects(kruhy.map((k) => k.ring), false)[0];
-  if (kr) { otevriByt(kruhy.find((k) => k.ring === kr.object).c); return; }
+  const kr = ray.intersectObjects(kruhy.map((k) => k.hit || k.ring), false)[0];
+  if (kr) { const k_ = kruhy.find((k) => (k.hit || k.ring) === kr.object); otevriByt(k_.c, k_.start); return; }
   if (stav !== 'chuze') return;
   const h = ray.intersectObjects(casti.zem.filter((o) => o.visible), false)[0];
   if (h && h.distance < 60) hrac.cil = h.point.clone();
@@ -515,15 +533,15 @@ function krok(dt) {
   hrac.p.y += ((gy + OCI) - hrac.p.y) * Math.min(1, dt * 10);
   camera.position.copy(hrac.p); camera.quaternion.copy(kvat(hrac.yaw, hrac.pitch));
   // tlačítko vstupu v blízkosti dveří
-  let blizko = null;
-  for (const c of [1, 2, 3]) { const o = vstupy[c]; if (o && o.bod && Math.hypot(o.bod.x - hrac.p.x, o.bod.z - hrac.p.z) < 3.2) blizko = c; }
+  let blizko = null, bd = 3.2;
+  for (const v of vstupniBody) { const d_ = Math.hypot(v.bod.x - hrac.p.x, v.bod.z - hrac.p.z); if (d_ < bd && Math.abs(v.bod.y + OCI - hrac.p.y) < 1.6) { bd = d_; blizko = v; } }
   const vb = $('velky');
   if (blizko) {
-    vb.innerHTML = BYTY[blizko].url ? `Vstoupit do domu ${blizko}<small>3D prohlídka domu · ${BYTY[blizko].plocha}</small>` : `Dům ${blizko}<small>prohlídku připravujeme</small>`;
-    vb.dataset.c = blizko; vb.classList.add('vid');
+    vb.innerHTML = BYTY[blizko.c].url ? `Vstoupit do domu ${blizko.c}${blizko.odkud}<small>3D prohlídka domu · ${BYTY[blizko.c].plocha}</small>` : `Dům ${blizko.c}<small>prohlídku připravujeme</small>`;
+    vb.dataset.c = blizko.c; vb.dataset.start = blizko.start; vb.classList.add('vid');
   } else vb.classList.remove('vid');
 }
-$('velky').addEventListener('click', () => otevriByt(+$('velky').dataset.c));
+$('velky').addEventListener('click', () => otevriByt(+$('velky').dataset.c, $('velky').dataset.start || 'vstup'));
 
 // ------------------------------------------------------------------ smyčka
 const hodiny = new THREE.Clock();
