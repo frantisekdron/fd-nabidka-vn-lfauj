@@ -973,6 +973,18 @@
       "height": 2.2,
       "kind": "window"
      }
+    ],
+    "surfaces": [
+     {
+      "side": "front",
+      "finish": "facadePlaster"
+     },
+     {
+      "side": "front",
+      "finish": "larch",
+      "y0": 0,
+      "y1": 2.53
+     }
     ]
    },
    {
@@ -1003,7 +1015,18 @@
     ],
     "thickness": 0.45,
     "exterior": true,
-    "openings": []
+    "openings": [],
+    "surfaces": [
+     {
+      "side": "back",
+      "finish": "facadePlaster"
+     },
+     {
+      "side": "back",
+      "finish": "larch",
+      "y0": 2.06
+     }
+    ]
    },
    {
     "id": "p-delici-sz",
@@ -1204,6 +1227,12 @@
       "height": 2.2,
       "kind": "window"
      }
+    ],
+    "surfaces": [
+     {
+      "side": "front",
+      "finish": "facadePlaster"
+     }
     ]
    },
    {
@@ -1248,8 +1277,9 @@
       "sill": 0,
       "height": 2.2,
       "kind": "door",
-      "label": "Vstupní dveře z ulice",
-      "note": "Vstupní dveře do ulice jsou v prohlídce zavřené – prohlídka je jen uvnitř domu. Na zahradu se jde z obývacího pokoje."
+      "id": "dv-vstup",
+      "hinge": "b",
+      "swing": 1
      },
      {
       "offset": 4.5735,
@@ -1257,6 +1287,12 @@
       "sill": 0,
       "height": 2.2,
       "kind": "window"
+     }
+    ],
+    "surfaces": [
+     {
+      "side": "back",
+      "finish": "larch"
      }
     ]
    },
@@ -3105,6 +3141,17 @@
      "byt-zahrada-detaily",
      "byt-zahrada-strom"
     ]
+   },
+   {
+    "id": "chuze",
+    "role": "surroundings",
+    "lods": [
+     {
+      "url": "exterier/chuze-j2-telefon-glb.webm",
+      "tier": "phone",
+      "bytes": 66668
+     }
+    ]
    }
   ],
   "terrainNode": "teren",
@@ -3360,7 +3407,119 @@
     "text": "Výhled z oken: fotky z dronu FD Studia promítnuté do modelu okolí; sousední bungalov domodelovaný podle ortofota, prázdná sousední parcela zobrazená jako čistý trávník",
     "kind": "source"
    }
-  ]
+  ],
+  "walk": {
+   "spawn": {
+    "position": [
+     19.699,
+     3.631,
+     9.371
+    ],
+    "azimuthDeg": 311.1
+   },
+   "routes": {
+    "ulice": [
+     [
+      19.699,
+      3.631,
+      9.371
+     ],
+     [
+      16.596,
+      3.138,
+      6.661
+     ],
+     [
+      15.278,
+      2.678,
+      1.034
+     ],
+     [
+      13.458,
+      2.45,
+      -0.824
+     ],
+     [
+      5.341,
+      2.78,
+      -9.438
+     ],
+     [
+      4.469,
+      2.78,
+      -9.853
+     ],
+     [
+      3.297,
+      2.86,
+      -8.749
+     ]
+    ],
+    "zahrada": [
+     [
+      -8.429,
+      0.0,
+      2.72
+     ],
+     [
+      -5.955,
+      0.0,
+      0.389
+     ],
+     [
+      -3.553,
+      0.0,
+      -1.875
+     ],
+     [
+      -2.825,
+      0.0,
+      -2.561
+     ],
+     [
+      -1.661,
+      0.0,
+      -3.658
+     ]
+    ]
+   },
+   "routeLabels": {
+    "ulice": "Z ulice ke vstupu",
+    "zahrada": "Zahradou na terasu"
+   },
+   "defaultRoute": "ulice",
+   "stops": [
+    {
+     "route": "ulice",
+     "i": 2,
+     "label": "Parkoviště",
+     "text": "Parkoviště a sjezd z ulice, podél domu vede chodník ke vstupům.",
+     "doors": []
+    },
+    {
+     "route": "ulice",
+     "i": 5,
+     "label": "Vstupní dveře",
+     "text": "Vstupní dveře z ulice do zádveří (1. NP).",
+     "doors": [
+      "dv-vstup"
+     ]
+    },
+    {
+     "route": "zahrada",
+     "i": 2,
+     "label": "Terasa",
+     "text": "Terasa před obývacím pokojem, posuvnými dveřmi do obýváku (1. PP).",
+     "doors": []
+    }
+   ],
+   "doors": [
+    {
+     "id": "dv-vstup",
+     "label": "Vstupní dveře"
+    }
+   ]
+  }
  },
  "backdrop": {
   "url": "vyhled/vyhled.json"
