@@ -1,0 +1,28 @@
+{
+ "version": 1,
+ "note": "Výhled z oken: otočka dronu 0699–0706 (FD Studio) promítnutá na model okolí, sousední bungalov domodelovaný, prázdná parcela jako trávník",
+ "photos": [
+  "0701",
+  "0702",
+  "0703",
+  "0704",
+  "0705",
+  "0706"
+ ],
+ "cylinder": {
+  "url": "vyhled-valec.webp",
+  "center": [
+   -3.485,
+   -6.629
+  ],
+  "radius": 90.0,
+  "bottom": -14.97,
+  "top": 56.122,
+  "sectors": [
+   [
+    7.6,
+    193.67
+   ]
+  ]
+ }
+}

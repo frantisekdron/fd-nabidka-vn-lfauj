@@ -3054,5 +3054,315 @@
   "description": "3D prohlídka jednotky 2 novostavby řadových domů Na Vinici ve Valticích: dvě podlaží, zahrada s terasou, prázdný i zařízený stav. Model podle projektové dokumentace.",
   "ogImage": "branding/og.jpg",
   "shortName": "Na Vinici"
+ },
+ "exterior": {
+  "version": 1,
+  "label": "Řadový dům Na Vinici",
+  "placement": {
+   "position": [
+    0,
+    0,
+    0
+   ],
+   "rotationDeg": 316.7,
+   "verified": null
+  },
+  "models": [
+   {
+    "id": "okoli",
+    "role": "surroundings",
+    "lods": [
+     {
+      "url": "exterier/okoli-telefon-glb.webm",
+      "tier": "phone",
+      "bytes": 969764
+     },
+     {
+      "url": "exterier/okoli-desktop-glb.webm",
+      "tier": "desktop",
+      "bytes": 3050876
+     }
+    ]
+   },
+   {
+    "id": "dum",
+    "role": "house",
+    "lods": [
+     {
+      "url": "exterier/dum-j2-telefon-glb.webm",
+      "tier": "phone",
+      "bytes": 1601264
+     },
+     {
+      "url": "exterier/dum-j2-desktop-glb.webm",
+      "tier": "desktop",
+      "bytes": 4604524
+     }
+    ],
+    "apartmentParts": [
+     "byt-fasada",
+     "byt-zahrada",
+     "byt-zahrada-detaily",
+     "byt-zahrada-strom"
+    ]
+   }
+  ],
+  "terrainNode": "teren",
+  "windows": [
+   {
+    "id": "okna-obyvak",
+    "label": "Obývací pokoj",
+    "note": "1. PP – obytné podlaží se zahradou",
+    "roomId": "obyvak",
+    "openings": [
+     {
+      "wall": "p-jz",
+      "index": 0
+     }
+    ],
+    "entry": "e-obyvak"
+   },
+   {
+    "id": "okna-jidelna",
+    "label": "Jídelna",
+    "note": "1. PP – obytné podlaží se zahradou",
+    "roomId": "jidelna",
+    "openings": [
+     {
+      "wall": "p-jz",
+      "index": 1
+     },
+     {
+      "wall": "p-jz",
+      "index": 2
+     },
+     {
+      "wall": "p-jz",
+      "index": 3
+     }
+    ],
+    "entry": "e-jidelna"
+   },
+   {
+    "id": "okna-pokoj-12",
+    "label": "Pokoj 12 m²",
+    "note": "1. NP – vstup z ulice a pokoje",
+    "roomId": "pokoj-12",
+    "openings": [
+     {
+      "wall": "n-jz",
+      "index": 0
+     }
+    ],
+    "entry": "e-pokoj-12"
+   },
+   {
+    "id": "okna-pokoj-15",
+    "label": "Pokoj 15 m²",
+    "note": "1. NP – vstup z ulice a pokoje",
+    "roomId": "pokoj-15",
+    "openings": [
+     {
+      "wall": "n-jz",
+      "index": 1
+     }
+    ],
+    "entry": "e-pokoj-15"
+   },
+   {
+    "id": "okna-pokoj-10",
+    "label": "Pokoj 10,9 m²",
+    "note": "1. NP – vstup z ulice a pokoje",
+    "roomId": "pokoj-10",
+    "openings": [
+     {
+      "wall": "n-sv",
+      "index": 2
+     }
+    ],
+    "entry": "e-pokoj-10"
+   }
+  ],
+  "views": [
+   {
+    "id": "jednotka",
+    "label": "Jednotka 2",
+    "target": [
+     -2.586,
+     2.06,
+     -2.029
+    ],
+    "azimuthDeg": 62.0,
+    "elevationDeg": 24,
+    "distance": 25
+   },
+   {
+    "id": "zahrady",
+    "label": "Zahrady",
+    "target": [
+     -3.618,
+     0.66,
+     -1.084
+    ],
+    "azimuthDeg": 31.0,
+    "elevationDeg": 27,
+    "distance": 44
+   },
+   {
+    "id": "ulice",
+    "label": "Ulice a vstupy",
+    "target": [
+     5.082,
+     3.26,
+     -8.183
+    ],
+    "azimuthDeg": 236.0,
+    "elevationDeg": 55,
+    "distance": 25
+   },
+   {
+    "id": "parkovani",
+    "label": "Parkoviště a sjezd",
+    "target": [
+     13.383,
+     1.66,
+     5.293
+    ],
+    "azimuthDeg": 292.0,
+    "elevationDeg": 32,
+    "distance": 30
+   },
+   {
+    "id": "shora",
+    "label": "Shora",
+    "target": [
+     0.569,
+     1.36,
+     -3.93
+    ],
+    "azimuthDeg": 46.7,
+    "elevationDeg": 70,
+    "distance": 62
+   }
+  ],
+  "start": "jednotka",
+  "entries": [
+   {
+    "id": "vstup",
+    "label": "Vstupní dveře (1. NP)",
+    "inside": {
+     "position": [
+      8.4,
+      4.51,
+      -4.108
+     ],
+     "yaw": 90,
+     "pitch": -4
+    },
+    "opening": {
+     "wall": "n-sv",
+     "index": 1
+    }
+   },
+   {
+    "id": "e-obyvak",
+    "label": "Obývací pokoj (1. PP)",
+    "inside": {
+     "position": [
+      2.3,
+      1.65,
+      -3.808
+     ],
+     "yaw": 46.2,
+     "pitch": -3
+    },
+    "opening": {
+     "wall": "p-jz",
+     "index": 0
+    }
+   },
+   {
+    "id": "e-jidelna",
+    "label": "Jídelna (1. PP)",
+    "inside": {
+     "position": [
+      1.8,
+      1.65,
+      -2.716
+     ],
+     "yaw": -90.0,
+     "pitch": -4
+    }
+   },
+   {
+    "id": "e-pokoj-12",
+    "label": "Pokoj 12 m² (1. NP)",
+    "inside": {
+     "position": [
+      1.8,
+      4.51,
+      -4.683
+     ],
+     "yaw": -90.0,
+     "pitch": -4
+    }
+   },
+   {
+    "id": "e-pokoj-15",
+    "label": "Pokoj 15 m² (1. NP)",
+    "inside": {
+     "position": [
+      1.8,
+      4.51,
+      -2.183
+     ],
+     "yaw": -90.0,
+     "pitch": -4
+    }
+   },
+   {
+    "id": "e-pokoj-10",
+    "label": "Pokoj 10,9 m² (1. NP)",
+    "inside": {
+     "position": [
+      7.702,
+      4.51,
+      -2.106
+     ],
+     "yaw": 90.0,
+     "pitch": -4
+    }
+   }
+  ],
+  "defaultEntry": "vstup",
+  "walkSurroundings": "always",
+  "ui": {
+   "slot": "primary"
+  },
+  "attribution": [
+   {
+    "text": "Terén a ortofoto © ČÚZK",
+    "licence": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "kind": "source"
+   },
+   {
+    "text": "Okolní budovy © přispěvatelé OpenStreetMap",
+    "licence": "ODbL 1.0",
+    "url": "https://www.openstreetmap.org/copyright",
+    "kind": "source"
+   },
+   {
+    "text": "Dům, zahrady, parkoviště a sjezd: 3D model FD Studia podle projektové dokumentace (dům se staví)",
+    "kind": "source"
+   },
+   {
+    "text": "Výhled z oken: fotky z dronu FD Studia promítnuté do modelu okolí; sousední bungalov domodelovaný podle ortofota, prázdná sousední parcela zobrazená jako čistý trávník",
+    "kind": "source"
+   }
+  ]
+ },
+ "backdrop": {
+  "url": "vyhled/vyhled.json"
  }
 }
