@@ -41,6 +41,8 @@
   .stitek .i small { display: block; font-weight: 600; letter-spacing: .04em; text-transform: none; color: var(--zlata); font-size: 11px; margin-top: 2px; }
   .stitek .p3d { display: block; font-style: normal; margin-top: 4px; color: #24221F; background: var(--zlata); padding: 3px 6px; font-size: 10.5px; letter-spacing: .08em; }
   .stitek::after { content: ''; display: block; width: 1px; height: 26px; background: var(--zlata); margin: 0 auto; }
+  .stitek.kompakt .i { display: none; }          /* 21. 11.: při překryvu jen číslo domu */
+  .stitek.kompakt::after { height: var(--linka, 14px); }   /* při srážce číslo výš na delší čárce */
   .vstup { position: fixed; transform: translate(-50%, -100%); pointer-events: auto; cursor: pointer; display: flex; align-items: center; gap: 8px;
     background: var(--grafit); border: 1px solid var(--zlata); padding: 7px 11px 7px 8px; font-size: 11px; font-weight: 800; letter-spacing: .1em;
     text-transform: uppercase; white-space: nowrap; color: var(--kremova); }
@@ -67,6 +69,8 @@
   .nacitani { position: fixed; inset: 0; display: grid; place-items: center; background: var(--grafit); z-index: 9; transition: opacity .6s; }
   .nacitani img { width: min(300px, 70vw); }
   .nacitani p { text-align: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--zlata); }
+  @media (min-width: 641px) and (max-width: 1000px) { .pozn { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 44px); } }   /* 21. 11.: poznámka nad nápovědou */
+  @media (min-width: 1001px) { .pozn { max-width: calc(50vw - 250px); } }
   @media (max-width: 640px) {
     .hlava svg { width: 36px; } .hlava .t { font-size: 19px; } .hlava .s { font-size: 9px; }
     .btn { min-width: 0; padding: 10px 11px; font-size: 11px; }
@@ -364,6 +368,15 @@ async function trava(mesh, lmSoubor, k) {
 
 // ------------------------------------------------------------------ štítky jednotek a vstupy
 const html = [];
+function rozmerStitku(s, komp) {                       // rozměr štítku v px (plný / jen číslo), měří se jednou, po změně okna znovu
+  s.rz ??= {}; const kl = komp ? 'k' : 'p';
+  if (!s.rz[kl]) { const bylo = s.el.classList.contains('kompakt'), disp = s.el.style.display; s.el.classList.toggle('kompakt', komp); s.el.style.display = '';
+    s.rz[kl] = [s.el.offsetWidth, s.el.offsetHeight]; s.el.classList.toggle('kompakt', bylo); s.el.style.display = disp; }
+  return s.rz[kl];
+}
+let uiObs = null, uiSnimek = 0;
+addEventListener('resize', () => { html.forEach(s => { s.rz = null; }); uiObs = null; });
+document.fonts?.ready.then(() => html.forEach(s => { s.rz = null; }));
 function stitek(el, pos, minD = 0, maxD = 1e9) { document.body.appendChild(el); html.push({ el, pos, minD, maxD }); return el; }
 for (const j of JEDNOTKY) {
   const b = BYTY[j.c];
@@ -389,6 +402,7 @@ function postavVstupy() {
     const el = document.createElement('div'); el.className = 'vstup' + (BYTY[c].url ? '' : ' ceka');
     el.innerHTML = `<span class="dot"></span><span>${BYTY[c].url ? 'Vstoupit · dům ' + c : 'Dům ' + c}<small>${BYTY[c].url ? '3D prohlídka domu' : 'prohlídku připravujeme'}</small></span>`;
     el.addEventListener('click', () => otevriByt(c));
+    el.dataset.strana = 'sv';                           // vstup z ulice – jen při pohledu ze strany vchodů
     stitek(el, p.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
     vstupy[c].bod = zemP; kruhy[kruhy.length - 1].start = 'vstup'; terc(kruhy[kruhy.length - 1]);
     vstupniBody.push({ c, bod: zemP, start: 'vstup', odkud: '' });
@@ -404,6 +418,7 @@ function postavVstupy() {
     const el = document.createElement('div'); el.className = 'vstup' + (ma ? '' : ' ceka');
     el.innerHTML = `<span class="dot"></span><span>${ma ? 'Vstoupit z terasy · dům ' + j.c : 'Dům ' + j.c}<small>${ma ? '3D prohlídka domu' : 'prohlídku připravujeme'}</small></span>`;
     el.addEventListener('click', () => otevriByt(j.c, 'obyvak'));
+    el.dataset.strana = 'jz';                           // vstup z terasy – jen při pohledu ze zahrad
     stitek(el, bod.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 80).vstupni = true;
     vstupniBody.push({ c: j.c, bod, start: 'obyvak', odkud: ' z terasy' });
   }
@@ -568,15 +583,36 @@ function snimek() {
   kompasI.style.transform = `rotate(${uhel}rad)`;
   kompasB.style.transform = `translate(${Math.sin(uhel) * 17 - 4}px, ${-Math.cos(uhel) * 17 - 6}px)`;
   for (const k of kruhy) k.ring.material.opacity = (BYTY[k.c].url ? 0.6 : 0.4) + 0.25 * Math.sin(performance.now() / 380);
-  // HTML štítky
+  // HTML štítky (21. 11. Franta z telefonu: štítky se překrývaly a každý dům byl dvakrát – vstup z terasy prosvítal domem)
   const w2 = innerWidth / 2, h2 = innerHeight / 2;
+  const predVstupy = camera.position.z < -DUM.YSV - 0.3;                   // kamera na straně vstupů (SV)
+  const predZahradou = camera.position.z > -DUM.YJZ + 0.3;                 // kamera na straně zahrad a teras (JZ)
+  const kand = [];
   for (const s of html) {
     const orbitSt = s.el.classList.contains('orbit-stitek');
     const p = s.pos.clone(); const d = p.distanceTo(camera.position); p.project(camera);
-    const predVstupy = camera.position.z < -DUM.YSV - 0.3;                 // kamera na straně vstupů (SV), jinak by štítky prosvítaly domem
-    const vid = p.z < 1 && d < (stav === 'chuze' && !orbitSt ? 18 : s.maxD) && (orbitSt ? (stav === 'orbit' && stitkyVid) : predVstupy) && Math.abs(p.x) < 1.1 && Math.abs(p.y) < 1.1;
-    s.el.style.display = vid ? '' : 'none';
-    if (vid) { s.el.style.left = `${w2 + p.x * w2}px`; s.el.style.top = `${h2 - p.y * h2}px`; }
+    const naStrane = orbitSt ? (stav === 'orbit' && stitkyVid) : (s.el.dataset.strana === 'jz' ? predZahradou : predVstupy);
+    const vid = p.z < 1 && d < (stav === 'chuze' && !orbitSt ? 18 : s.maxD) && naStrane && Math.abs(p.x) < 1.1 && Math.abs(p.y) < 1.1;
+    if (!vid) { s.el.style.display = 'none'; continue; }
+    kand.push({ s, orbitSt, d, x: w2 + p.x * w2, y: h2 - p.y * h2 });
+  }
+  // bez překryvu: čísla všech domů mají přednost (bližší dřív), plná karta jen kde nezakryje jiné číslo, pak vstupy; co se nevejde, schová se
+  kand.sort((a, b) => (b.orbitSt - a.orbitSt) || (a.d - b.d));
+  if (!uiObs || ++uiSnimek % 30 === 0) uiObs = [...document.querySelectorAll('.hlava, .btn, .kompas, .napoveda, .velky, .pozn')]   // ovládání = překážka
+    .map(e => e.getBoundingClientRect()).filter(r => r.width > 0 && r.height > 0).map(r => [r.left, r.top, r.right, r.bottom]);
+  const obs = [...uiObs];
+  const obdelnik = (k, komp, L = 0) => { const [w, h] = rozmerStitku(k.s, komp); const top = k.y - h - L;      // L = prodloužení čárky
+    return [k.x - w / 2 - 3, top - 3, k.x + w / 2 + 3, (L ? top + h - 14 : k.y) + 3]; };
+  const srazka = (r, krome) => obs.some(q => q !== krome && r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1]);
+  for (const k of kand) if (k.orbitSt) {
+    const krok = rozmerStitku(k.s, true)[1] - 14 + 8;
+    for (const L of [0, krok, 2 * krok]) { const r = obdelnik(k, true, L); if (!srazka(r)) { k.r = r; k.komp = true; k.L = L; obs.push(r); break; } }
+  }
+  for (const k of kand) if (k.orbitSt && k.r && !k.L) { const r = obdelnik(k, false); if (!srazka(r, k.r)) { obs[obs.indexOf(k.r)] = r; k.r = r; k.komp = false; } }
+  for (const k of kand) if (!k.orbitSt) { const r = obdelnik(k, false); if (!srazka(r)) { k.r = r; obs.push(r); } }
+  for (const k of kand) {
+    k.s.el.style.display = k.r ? '' : 'none';
+    if (k.r) { k.s.el.classList.toggle('kompakt', !!k.komp); k.s.el.style.setProperty('--linka', `${14 + (k.L || 0)}px`); k.s.el.style.left = `${k.x}px`; k.s.el.style.top = `${k.y}px`; }
   }
   composer.render();
   requestAnimationFrame(snimek);
